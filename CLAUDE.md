@@ -40,6 +40,10 @@
   - utm_content = 広告ID
   - source / medium = `meta / display`
 - sessionCampaignName を「campaign_id」を含むで絞り、IDで突き合わせる。
+- ただしパーソナルのキャンペーンは UTM の形式が違うので、「campaign_id」で絞ると漏れる。
+  - 20260526_パーソナル全店: utm_campaign = 店舗名（meguro など）、utm_content = 広告ID、utm_term = 広告セットID、`meta / display`
+  - パーソナル_クリックスルー: utm_campaign = キャンペーンID（120252098389530441）、utm_content = 広告ID、utm_term = 広告セットID、`ig / paid`
+  - Meta 経由の CV を拾うときは、source が meta / ig / fb / facebook のものを全件見てから、utm_content の広告IDでキャンペーンに振り分ける。
 - utm_content が (not set) で、表示のない広告も含めて全広告に一律4〜7セッション入っている場合は、広告作成直後の審査ボットなどの自動アクセスとみなす。CVR の分母から外す。
 - パーソナルの CV は、pageReferrer の itemCode=I0616、またはスタジオID 76〜79（79 新宿、78 目黒、77 横浜）で判定する。
 
