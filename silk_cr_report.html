@@ -48,6 +48,7 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
 ul{margin:0;padding-left:1.2em}li{margin:2px 0}
 .note{font-size:12.5px;color:var(--mute)}
 details.acc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin-top:12px}details.acc summary{cursor:pointer;font-weight:700;color:var(--accent)}details.acc[open] summary{margin-bottom:8px}details.acc .gal{margin-top:8px}
+.base{margin-top:14px;display:flex;flex-direction:column;gap:6px}.tile:first-child{border-color:var(--accent);background:var(--accent-soft)}.tile:first-child b{color:var(--accent)}
 .premise{margin-top:12px;background:var(--warn-soft);border-radius:8px;padding:10px 14px;font-size:13px}
 .hyp{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}.hyp li b{color:var(--accent)}.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:4px;padding:0 6px;margin-right:6px}.t-ok{background:var(--good-soft);color:var(--good)}.t-hy{background:var(--line);color:var(--mute)}
 </style>
@@ -57,7 +58,7 @@ details.acc{background:var(--panel);border:1px solid var(--line);border-radius:8
 <p>結論：<b>先生やレッスン風景の写真に、共感コピーを載せたバナー</b>が、GA CPAが一番良い。今の動画は、媒体CVでは良く見えるがGAの予約にはつながっていない。ただ、レッスンを体感できる動画はまだ試せておらず、次に当てるべきはそこです。割引主役のバナーもGA CPAは高め。下に、そう判断した数値を全CR分載せています。</p>
 <details class="acc"><summary>「先生やレッスン風景の写真に、共感コピーを載せたバナー」に当たるCRを見る</summary><p class="sub">写真が先生・レッスン風景のバナー。GA CPAの良い順（GA CV 0件は消化の多い順で後ろ）。画像を押すと拡大します。</p><div class="gal" id="gc"></div></details>
 <p class="premise"><b>前提：このレポートはGA CVで評価しています。</b>媒体CV（Metaのカスタムイベント）はGA CVの約43倍あり、予約完了以外も数えています。媒体CPAが最上位の「5周年キャンペーン16」「新動画01」はGA CVが0件で、媒体CPAの順位はGA CPAの順位と合いません。媒体CVが予約完了だけを数えるよう、イベント設定の見直しが必要です。</p></header>
-<div class="tiles" id="tiles"></div>
+<div class="base"><p class="sub"><b>判断の基準になる全体平均</b>（期間全体・グループ配信の合計）。下の示唆は、各CRや要素がこの平均GA CPA ¥81,013より良いか悪いかで見ています。</p><div class="tiles" id="tiles"></div></div>
 
 <section><h2>示唆と、その根拠にした数値</h2><p class="sub">色を付けた列が、その示唆で見るべき数値です。緑の行は良い例、赤の行は悪い例。表には判断に使う列だけを残しています（全項目は下の全CR一覧にあります）。CVRはクリックあたり。媒体CVはMetaのカスタムイベント数（GA CVの約43倍あり、予約完了より手前の行動も含むとみられます）。</p><div id="ins" style="display:flex;flex-direction:column;gap:14px"></div></section>
 
@@ -89,7 +90,7 @@ function tbl(label,list,mark={},show=H,focus=[],cnt=true){const ix=show.map(x=>H
 R.forEach((r,i)=>RI.set(r.n,i));
 const by=(k,rs=R)=>{const m=new Map();rs.forEach(r=>{if(!m.has(r[k]))m.set(r[k],[]);m.get(r[k]).push(r)});return [...m]};
 const B=R.filter(r=>r.f==='バナー'),V=R.filter(r=>r.f==='動画'),T=agg(R);
-document.getElementById('tiles').innerHTML=[['消化金額',yen(T.cost)],['GA CV',T.ga+'件'],['GA CPA',yen(T.cost/T.ga)],['媒体CV',T.mcv.toLocaleString()+'件'],['CR数',R.length+'本']].map(x=>'<div class="tile"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>').join('');
+document.getElementById('tiles').innerHTML=[['平均GA CPA（基準）',yen(T.cost/T.ga)],['GA CV',T.ga+'件'],['消化金額',yen(T.cost)],['CR数（バナー'+B.length+'・動画'+V.length+'）',R.length+'本']].map(x=>'<div class="tile"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>').join('');
 const pick=ns=>ns.map(n=>[n,R.filter(r=>r.n===n)]);
 const ph=by('ph',B).filter(x=>['先生・レッスン風景','先生が生徒を補助','レッスン風景','レッスン風景＋先生','モデル単体のポーズ','モデル単体'].includes(x[0]));
 const teacher=['先生・レッスン風景','先生が生徒を補助','レッスン風景','レッスン風景＋先生'];
