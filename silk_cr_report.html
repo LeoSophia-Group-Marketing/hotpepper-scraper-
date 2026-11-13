@@ -49,13 +49,15 @@ ul{margin:0;padding-left:1.2em}li{margin:2px 0}
 .note{font-size:12.5px;color:var(--mute)}
 details.acc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin-top:12px}details.acc summary{cursor:pointer;font-weight:700;color:var(--accent)}details.acc[open] summary{margin-bottom:8px}details.acc .gal{margin-top:8px}
 .base{margin-top:14px;display:flex;flex-direction:column;gap:6px}.tile:first-child{border-color:var(--accent);background:var(--accent-soft)}.tile:first-child b{color:var(--accent)}
+.cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:14px}.cmp>div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}.cmp .gal{grid-template-columns:repeat(2,1fr)}
 .premise{margin-top:12px;background:var(--warn-soft);border-radius:8px;padding:10px 14px;font-size:13px}
 .hyp{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}.hyp li b{color:var(--accent)}.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:4px;padding:0 6px;margin-right:6px}.t-ok{background:var(--good-soft);color:var(--good)}.t-hy{background:var(--line);color:var(--mute)}
 </style>
 <div class="wrap">
 <header><p class="sub">the SILK グループ体験予約 ｜ Meta自社アカウント ｜ 2026/10/1〜11/12</p>
 <h1>SILKグループMeta CR分析</h1>
-<p>結論：<b>共感コピーで「自分のことだ」と思わせ、レッスン風景の写真で「自分が通っている姿」を想像させるバナー</b>が、GA CPAが一番良い（「運動が苦手」「続かなかった」などの初心者に寄り添うコピー×普通の生徒がレッスンを受けている写真）。「先生がいるから安心」と伝えるだけの、先生が1対1で補助する写真は、15本合計で平均並みでした。今の動画は、媒体CVでは良く見えるがGAの予約にはつながっていない。配信面（Audience Network）の影響を除いてもGA CPAはほぼ変わらず、主な理由は中身です。レッスンを体感できる動画はまだ試せておらず、次に当てるべきはそこです。割引主役のバナーもGA CPAは高め。下に、そう判断した数値を全CR分載せています。</p>
+<p>結論：<b>コピーの主語が「見る人」で、写真に「自分が通っている姿」が重なるバナー</b>が、GA CPAが一番良い。「運動が苦手」「続かなかった」と見る人の気持ちを代弁し、普通の生徒がレッスンを受けている写真を使ったものです。一方、コピーの主語が「SILK」のバナー（「10人に1人の狭き門」「合格率わずか10%」など、講師の選抜率を打ち出したもの）は、3本で¥15.3万使ってGA CVは1件、GA CPA約¥15.3万でした（下の比較を参照）。今の動画は、媒体CVでは良く見えるがGAの予約にはつながっていない。レッスンを体感できる動画はまだ試せておらず、次に当てるべきはそこです。割引主役のバナーもGA CPAは高め。下に、そう判断した数値を全CR分載せています。</p>
+<div class="cmp"><div><h3>勝ち：主語が「見る人」　<span class="sub">運動が苦手な初心者向け 計 GA CPA <b id="c1"></b></span></h3><div class="gal" id="ca"></div></div><div><h3>負け：主語が「SILK」　<span class="sub">講師の選抜率を打ち出した3本 計 GA CPA <b id="c2"></b></span></h3><div class="gal" id="cb"></div></div></div>
 <details class="acc"><summary>先生・レッスン風景が写っているバナーを見る</summary><p class="sub">写真が先生・レッスン風景のバナー。GA CPAの良い順（GA CV 0件は消化の多い順で後ろ）。画像を押すと拡大します。</p><div class="gal" id="gc"></div></details>
 <p class="premise"><b>前提：このレポートはGA CVで評価しています。</b>媒体CV（Metaのカスタムイベント）はGA CVの約43倍あり、予約完了以外も数えています。媒体CPAが最上位の「5周年キャンペーン16」「新動画01」はGA CVが0件で、媒体CPAの順位はGA CPAの順位と合いません。媒体CVが予約完了だけを数えるよう、イベント設定の見直しが必要です。</p></header>
 <div class="base"><p class="sub"><b>判断の基準と、分析の母数</b>（期間全体・グループ配信の合計）。下の示唆は、各CRや要素がこの平均GA CPA ¥81,013より良いか悪いかで見ています。GA CV・消化金額・CR数は分析の母数で、結論の信頼度の目安です。GA CVは全体で60件、CR単体では1〜6件なので、CR単体の順位は傾向として見て、シリーズや要素でまとめた差を重視してください。</p><div class="tiles" id="tiles"></div></div>
@@ -142,6 +144,9 @@ function chips(){const mk=(lab,opts,cur,id)=>'<span class="sub">'+lab+'</span>'+
 document.getElementById('ctl').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.g==='f')ff=b.dataset.v;else fj=b.dataset.v;chips();draw()});
 chips();draw();
 const card=r=>'<div class="card">'+(r.b?'<img src="'+r.b+'" data-i="'+RI.get(r.n)+'" alt="'+r.n+'">':'')+'<div><b>'+r.n+'</b><span class="k">GA CV '+r.ga+'件 ／ '+(r.ga?yen(r.cost/r.ga):'CPA －')+'</span><br><span class="k">COST '+yen(r.cost)+' ・ CTR '+(r.ctr*100).toFixed(2)+'%</span></div></div>';
+document.getElementById('ca').innerHTML=['運動が苦手な初心者向け4','運動が苦手な初心者向け2'].map(n=>card(R[RI.get(n)])).join('');
+document.getElementById('cb').innerHTML=['指導力&初心者訴求2','指導力&初心者訴求3'].map(n=>card(R[RI.get(n)])).join('');
+{const g=x=>{const t=agg(R.filter(r=>r.s===x));return yen(t.cost/t.ga)};document.getElementById('c1').textContent=g('運動が苦手な初心者向け');{const t=agg(R.filter(r=>['指導力&初心者訴求1','指導力&初心者訴求2','指導力&初心者訴求3'].includes(r.n)));document.getElementById('c2').textContent=yen(t.cost/t.ga)}}
 document.getElementById('gc').innerHTML=B.filter(r=>teacher.includes(r.ph)).sort((a,b)=>{const k=r=>r.ga?r.gcpa:9e9-r.cost;return k(a)-k(b)}).map(card).join('');
 document.getElementById('gw').innerHTML=R.filter(r=>r.j==='勝ち').sort((a,b)=>a.gcpa-b.gcpa).map(card).join('');
 document.getElementById('gl').innerHTML=B.filter(r=>r.j==='負け').slice(0,12).map(card).join('');
