@@ -29,7 +29,7 @@ tr.tot td{font-weight:700;border-top:2px solid var(--line)}tr.ch td{font-size:12
 .pill{display:inline-block;border-radius:20px;padding:1px 10px;font-size:12px;font-weight:700}
 .p-勝ち{background:var(--good-soft);color:var(--good)}.p-CVあり{background:var(--accent-soft);color:var(--accent)}.p-負け{background:var(--bad-soft);color:var(--bad)}.p-保留{background:var(--line);color:var(--mute)}
 #all th{cursor:pointer;user-select:none}#all th:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-img.th{width:64px;height:64px;object-fit:cover;border-radius:4px;display:block;cursor:zoom-in}
+img.th{width:96px;height:96px;object-fit:cover;border-radius:4px;display:block;cursor:zoom-in}
 button.tb{all:unset;cursor:zoom-in;display:block;border-radius:4px}
 .nmc{display:flex;align-items:center;gap:10px}
 .gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
@@ -47,18 +47,21 @@ button.chip{font:inherit;font-size:13px;border:1px solid var(--line);background:
 button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:700}
 ul{margin:0;padding-left:1.2em}li{margin:2px 0}
 .note{font-size:12.5px;color:var(--mute)}
+details.acc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin-top:12px}details.acc summary{cursor:pointer;font-weight:700;color:var(--accent)}details.acc[open] summary{margin-bottom:8px}details.acc .gal{margin-top:8px}
+.premise{margin-top:12px;background:var(--warn-soft);border-radius:8px;padding:10px 14px;font-size:13px}
+.hyp{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}.hyp li b{color:var(--accent)}.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:4px;padding:0 6px;margin-right:6px}.t-ok{background:var(--good-soft);color:var(--good)}.t-hy{background:var(--line);color:var(--mute)}
 </style>
 <div class="wrap">
 <header><p class="sub">the SILK グループ体験予約 ｜ Meta自社アカウント ｜ 2026/10/1〜11/12</p>
 <h1>どのクリエイティブが予約につながったか</h1>
-<p>結論：<b>先生やレッスン風景の写真に、共感コピーを載せたバナー</b>が、GA CPAが一番良い。今の動画は、媒体CVでは良く見えるがGAの予約にはつながっていない。ただ、レッスンを体感できる動画はまだ試せておらず、次に当てるべきはそこです。割引主役のバナーもGA CPAは高め。下に、そう判断した数値を全CR分載せています。</p></header>
+<p>結論：<b>先生やレッスン風景の写真に、共感コピーを載せたバナー</b>が、GA CPAが一番良い。今の動画は、媒体CVでは良く見えるがGAの予約にはつながっていない。ただ、レッスンを体感できる動画はまだ試せておらず、次に当てるべきはそこです。割引主役のバナーもGA CPAは高め。下に、そう判断した数値を全CR分載せています。</p>
+<details class="acc"><summary>「先生やレッスン風景の写真に、共感コピーを載せたバナー」に当たるCRを見る</summary><p class="sub">写真が先生・レッスン風景のバナー。GA CPAの良い順（GA CV 0件は消化の多い順で後ろ）。画像を押すと拡大します。</p><div class="gal" id="gc"></div></details>
+<p class="premise"><b>前提：このレポートはGA CVで評価しています。</b>媒体CV（Metaのカスタムイベント）はGA CVの約43倍あり、予約完了以外も数えています。媒体CPAが最上位の「5周年キャンペーン16」「新動画01」はGA CVが0件で、媒体CPAの順位はGA CPAの順位と合いません。媒体CVが予約完了だけを数えるよう、イベント設定の見直しが必要です。</p></header>
 <div class="tiles" id="tiles"></div>
 
 <section><h2>示唆と、その根拠にした数値</h2><p class="sub">色を付けた列が、その示唆で見るべき数値です。緑の行は良い例、赤の行は悪い例。表には判断に使う列だけを残しています（全項目は下の全CR一覧にあります）。CVRはクリックあたり。媒体CVはMetaのカスタムイベント数（GA CVの約43倍あり、予約完了より手前の行動も含むとみられます）。</p><div id="ins" style="display:flex;flex-direction:column;gap:14px"></div></section>
 
 <section><h2>実物で見る：勝ちCRと負けCR</h2><p class="sub">画像を押すと拡大し、数値も表示します。動画は冒頭の静止画です（Metaから取得できる最大サイズ）。</p><h3>勝ち（GA CV 2件以上、GA CPA 4.5万円以下）</h3><div class="gal" id="gw"></div><h3>負け：バナー（3万円以上使ってGA CV 0件、消化の多い順）</h3><div class="gal" id="gl"></div><h3>動画（消化の多い順）</h3><div class="gal" id="gv"></div></section>
-
-<section><h2>訴求シリーズ別</h2><p class="sub">同じシリーズのCRを合算。GA CPAの良い順。</p><div class="tw"><table id="ser"></table></div></section>
 
 <section><h2>全CR一覧（92本）</h2>
 <p class="sub">列見出しを押すと並べ替え。判定の基準：<span class="pill p-勝ち">勝ち</span> GA CV 2件以上かつGA CPA 4.5万円以下　<span class="pill p-CVあり">CVあり</span> GA CV 1件以上　<span class="pill p-負け">負け</span> 3万円以上使ってGA CV 0件　<span class="pill p-保留">保留</span> 消化3万円未満でCV 0件</p>
@@ -79,7 +82,7 @@ const R=[{"n": "動画03", "f": "動画", "s": "動画01〜05", "ph": "動画", 
 const yen=n=>'¥'+Math.round(n).toLocaleString('ja-JP'),pct=(a,b,d=2)=>b?(a/b*100).toFixed(d)+'%':'－';
 function agg(rs){const t={cost:0,imp:0,clk:0,mcv:0,ga:0,n:rs.length};rs.forEach(r=>{for(const k of['cost','imp','clk','mcv','ga'])t[k]+=r[k]});return t}
 function cells(t){return [yen(t.cost),yen(t.cost/t.imp*1000),pct(t.clk,t.imp),yen(t.cost/Math.max(t.clk,1)),t.mcv,pct(t.mcv,t.clk,1),t.mcv?yen(t.cost/t.mcv):'－',t.ga,pct(t.ga,t.clk),t.ga?yen(t.cost/t.ga):'－']}
-const RI=new Map();function im(r){return r.t?'<button class="tb" data-i="'+RI.get(r.n)+'" aria-label="'+r.n+'を拡大"><img class="th" src="'+r.t+'" alt="'+r.n+'"></button>':''}
+const RI=new Map();function im(r,big){const src=big?(r.b||r.t):r.t;return src?'<button class="tb" data-i="'+RI.get(r.n)+'" aria-label="'+r.n+'を拡大"><img class="th" src="'+src+'" alt="'+r.n+'"></button>':'<span class="note">画像なし</span>'}
 const H=['COST','CPM','CTR','CPC','媒体CV','媒体CVR','媒体CPA','GA CV','GA CVR','GA CPA'];
 function tbl(label,list,mark={},show=H,focus=[],cnt=true){const ix=show.map(x=>H.indexOf(x));let h='<div class="tw"><table><tr><th>'+label+'</th>'+(cnt?'<th>CR数</th>':'')+show.map(x=>'<th class="'+(focus.includes(x)?'fc':'')+'">'+x+'</th>').join('')+'</tr>';
  list.forEach(([name,rs,lv])=>{const t=agg(rs),c=cells(t);const one=rs.length===1&&rs[0].t&&!lv?rs[0]:null;h+='<tr class="'+(mark[name]||'')+(lv===1?' ch':lv===0?' tot':'')+'"><td class="nm">'+(lv===1?'<span class="br">└</span>':'')+(one?'<span class="nmc">'+im(one)+'<span>'+name+'</span></span>':name)+'</td>'+(cnt?'<td class="num">'+t.n+'</td>':'')+ix.map((i,k)=>'<td class="num '+(focus.includes(show[k])?'fc':'')+'">'+c[i]+'</td>').join('')+'</tr>'});return h+'</table></div>'}
@@ -103,18 +106,27 @@ const I=[
 ['対象の絞り込み','駅名で呼びかけるバナーは、CTRは低いがGA CPAは約¥1.5万で最も良い','「天王寺へ通勤している方へ」はCTR 0.60%で全体の半分ですが、GA CVRは2.80%（バナー平均の約6倍）、GA CPAは約¥1.5万です。新宿版は消化が¥9千で、まだ判断できる量ではありません。',
  tbl('CR',[...pick(['天王寺へ通勤している方へ_バナー','新宿駅へ通勤している方へ_バナー']),['参考：バナー全体の合計',B,0]],{'天王寺へ通勤している方へ_バナー':'hi'},['COST','CTR','GA CV','GA CVR','GA CPA'],['CTR','GA CVR','GA CPA']),'駅・エリア名を入れた「〜へ通勤している方へ」を、各エリアに展開する。'],
 ['CTRとCPM','CTRが高い動画ほどGA CVRが低く、CPMが安い配信はGA CVが出ていない','動画01〜03はCTR 2.8〜5.2%と高いのに、GA CVRは0.10〜0.24%。大阪の動画はCPMが¥1,000〜1,500と安く、GA CVは0件です。逆に勝ちCRの指導力5は、CPMが¥6,441と高めです。',
- tbl('CR',pick(['動画02','動画01','動画03','肩こり_動画','ピラティス前後_動画','私を整える50分_動画','指導力&初心者訴求5','運動が苦手な初心者向け4']),{'動画02':'lo','動画01':'lo','動画03':'lo','肩こり_動画':'lo','ピラティス前後_動画':'lo','私を整える50分_動画':'lo','指導力&初心者訴求5':'hi','運動が苦手な初心者向け4':'hi'},['COST','CPM','CTR','GA CV','GA CVR','GA CPA'],['CPM','CTR','GA CVR'],false),'CTRやCPMの良さでCRを残さない。動画は、勝ちバナーと同じ中身（冒頭で呼びかけ、先生が補助する場面）で作り直す。'],
-['媒体CVとのずれ','媒体CPAが最上位のCRは、GA CPAでは上位に入らない','媒体CPAが良い順に並べた上位8本（消化5万円以上）です。媒体CPAは¥1,150〜1,450ですが、最上位の2本（5周年キャンペーン16、新動画01）はGA CVが0件です。媒体CPAの順位は、GA CPAの順位と合っていません。',
- tbl('CR（媒体CPAの良い順）',R.filter(r=>r.cost>=50000&&r.mcv).sort((a,b)=>a.cost/a.mcv-b.cost/b.mcv).slice(0,8).map(r=>[r.n,[r]]),{},['COST','媒体CV','媒体CPA','GA CV','GA CPA'],['媒体CPA','GA CPA'],false),'媒体CVが予約完了だけを数えるように、イベント設定を見直す。']
+ tbl('CR',pick(['動画02','動画01','動画03','肩こり_動画','ピラティス前後_動画','指導力&初心者訴求5','運動が苦手な初心者向け4']),{'動画02':'lo','動画01':'lo','動画03':'lo','肩こり_動画':'lo','ピラティス前後_動画':'lo','指導力&初心者訴求5':'hi','運動が苦手な初心者向け4':'hi'},['COST','CPM','CTR','GA CV','GA CVR','GA CPA'],['CPM','CTR','GA CVR'],false)
+ +'<h3>要因仮説（配置別の実績で確認）</h3><ol class="hyp">'
+ +'<li><span class="tag t-ok">データで確認</span><b>動画の高CTRは、Audience Networkのリワード動画のクリック。</b>ゲームなどの報酬と引き換えに見る広告枠で、誤タップや報酬目当てのクリックが多い枠です。動画01〜03のクリックの57〜77%がここから来ており、CTRは14〜16%。この枠を除くとCTRは1.2〜1.7%で、バナー並みです。</li>'
+ +'<li><span class="tag t-ok">データで確認</span><b>大阪動画のCPMが安いのは、Threadsと発見タブに配信の4〜5割が流れたため。</b>この2枠のCPMは¥500〜830と安い一方、CTRは0.3%前後で、ほぼ見られていません。バナー全体ではこの2枠は14%です。</li>'
+ +'<li><span class="tag t-hy">仮説</span><b>動画は、何のサービスで誰向けかが伝わる前にクリックされている。</b>Audience Networkを除いて数えても、動画01〜03のクリックあたりGA CVRは0.4〜0.9%で、勝ちバナー（1.1〜1.8%）より低いままです。動きで興味は引けても、遷移先（5周年の割引LP）で「思っていたのと違う」になっている可能性があります。</li>'
+ +'<li><span class="tag t-hy">仮説</span><b>最適化の目標が媒体CVなので、Metaが安い枠に寄せている。</b>媒体CVは予約完了以外も数えるため、媒体CVが安く取れるAudience NetworkやThreadsに配信が偏りやすくなります。</li></ol>'
+ +'<div class="tw"><table><tr><th>CR</th><th>クリック</th><th class="fc">うちAudience Network</th><th>ANのCTR</th><th class="fc">AN以外のCTR</th><th>GA CV</th><th class="fc">AN以外のクリックあたりGA CVR</th></tr>'
+ +[['動画01','1,679','1,242（74%）','16.0%','1.16%',4,'0.92%'],['動画02','1,046','809（77%）','14.4%','1.65%',1,'0.42%'],['動画03','2,351','1,339（57%）','16.1%','1.34%',4,'0.40%']].map(r=>'<tr class="lo"><td class="nm">'+r[0]+'</td>'+r.slice(1).map((v,k)=>'<td class="num'+([1,3,5].includes(k)?' fc':'')+'">'+v+'</td>').join('')+'</tr>').join('')
+ +'</table></div>'
+ +'<div class="tw"><table><tr><th>CR</th><th class="fc">Threads＋発見タブの配信比率</th><th class="fc">この2枠のCPM</th><th>この2枠のCTR</th><th>他の枠のCPM</th><th>他の枠のCTR</th></tr>'
+ +[['肩こり_動画','50%','¥495','0.27%','¥1,606','0.64%'],['ピラティス前後_動画','43%','¥832','0.32%','¥1,322','1.16%'],['参考：バナー全体','14%','－','－','－','－']].map((r,i)=>'<tr class="'+(i<2?'lo':'tot')+'"><td class="nm">'+r[0]+'</td>'+r.slice(1).map((v,k)=>'<td class="num'+(k<2?' fc':'')+'">'+v+'</td>').join('')+'</tr>').join('')
+ +'</table></div><p class="note">配置別はMetaの publisher_platform × platform_position（2026/10/1〜11/12）。GA CVは配置別に分けられないため、「AN以外のクリックあたりGA CVR」はGA CVがすべてAN以外から来たとみなした上限値です。</p>',
+ 'CTRやCPMの良さでCRを残さない。動画はAudience NetworkとThreadsを外した配置で配信し、勝ちバナーと同じ中身（冒頭で呼びかけ、先生が補助する場面）で作り直す。'],
 ];
 document.getElementById('ins').innerHTML=I.map((x,i)=>'<article class="ins"><div class="no">示唆 '+(i+1)+'｜'+x[0]+'</div><h3>'+x[1]+'</h3><p>'+x[2]+'</p>'+x[3]+'<div class="act"><b>打ち手：</b>'+x[4]+'</div></article>').join('');
-document.getElementById('ser').outerHTML=tbl('シリーズ',by('s').sort((a,b)=>{const x=agg(a[1]),y=agg(b[1]);return (x.ga?x.cost/x.ga:9e9+ -x.cost)-(y.ga?y.cost/y.ga:9e9+ -y.cost)}),{},['COST','CPM','CTR','媒体CPA','GA CV','GA CVR','GA CPA'],['GA CPA']).replace('<div class="tw">','').replace('</div>','');
 const cols=[['','t'],['CR名','n'],['判定','j'],['形式','f'],['シリーズ','s'],['写真','ph'],['見出しの軸','hd'],['割引の扱い','dc'],['COST','cost'],['IMP','imp'],['CPM','cpm'],['クリック','clk'],['CTR','ctr'],['CPC','cpc'],['媒体CV','mcv'],['媒体CVR','mcvr'],['媒体CPA','mcpa'],['GA CV','ga'],['GA CVR','gcvr'],['GA CPA','gcpa']];
 R.forEach(r=>{r.cpm=r.cost/r.imp*1000;r.ctr=r.clk/r.imp;r.cpc=r.clk?r.cost/r.clk:Infinity;r.mcvr=r.clk?r.mcv/r.clk:0;r.mcpa=r.mcv?r.cost/r.mcv:Infinity;r.gcvr=r.clk?r.ga/r.clk:0;r.gcpa=r.ga?r.cost/r.ga:Infinity});
 let sk='cost',sd=-1,ff='すべて',fj='すべて';
 function draw(){const rs=R.filter(r=>(ff==='すべて'||r.f===ff)&&(fj==='すべて'||r.j===fj)).sort((a,b)=>{const x=a[sk],y=b[sk];return (typeof x==='string'?x.localeCompare(y,'ja'):x-y)*sd});
  const f=(r,k)=>({cost:yen(r.cost),imp:r.imp.toLocaleString(),cpm:yen(r.cpm),clk:r.clk.toLocaleString(),ctr:(r.ctr*100).toFixed(2)+'%',cpc:isFinite(r.cpc)?yen(r.cpc):'－',mcv:r.mcv,mcvr:(r.mcvr*100).toFixed(1)+'%',mcpa:isFinite(r.mcpa)?yen(r.mcpa):'－',ga:r.ga,gcvr:(r.gcvr*100).toFixed(2)+'%',gcpa:isFinite(r.gcpa)?yen(r.gcpa):'－'})[k];
- document.getElementById('all').innerHTML='<tr>'+cols.map(c=>'<th tabindex="0" data-k="'+c[1]+'" class="'+(['n','j','f','s','ph','hd','dc','t'].includes(c[1])?'l':'')+'">'+c[0]+(sk===c[1]?(sd<0?' ▼':' ▲'):'')+'</th>').join('')+'</tr>'+rs.map(r=>'<tr>'+cols.map(c=>{const k=c[1];if(k==='t')return '<td class="l">'+im(r)+'</td>';if(k==='n')return '<td class="nm">'+r.n+'</td>';if(k==='j')return '<td class="l"><span class="pill p-'+r.j+'">'+r.j+'</span></td>';if(['f','s','ph','hd','dc'].includes(k))return '<td class="l">'+r[k]+'</td>';return '<td class="num">'+f(r,k)+'</td>'}).join('')+'</tr>').join('')}
+ document.getElementById('all').innerHTML='<tr>'+cols.map(c=>'<th tabindex="0" data-k="'+c[1]+'" class="'+(['n','j','f','s','ph','hd','dc','t'].includes(c[1])?'l':'')+'">'+c[0]+(sk===c[1]?(sd<0?' ▼':' ▲'):'')+'</th>').join('')+'</tr>'+rs.map(r=>'<tr>'+cols.map(c=>{const k=c[1];if(k==='t')return '<td class="l">'+im(r,1)+'</td>';if(k==='n')return '<td class="nm">'+r.n+'</td>';if(k==='j')return '<td class="l"><span class="pill p-'+r.j+'">'+r.j+'</span></td>';if(['f','s','ph','hd','dc'].includes(k))return '<td class="l">'+r[k]+'</td>';return '<td class="num">'+f(r,k)+'</td>'}).join('')+'</tr>').join('')}
 document.getElementById('all').addEventListener('click',e=>{const th=e.target.closest('th');if(!th||th.dataset.k==='t')return;const k=th.dataset.k;if(sk===k)sd=-sd;else{sk=k;sd=['n','j','f','s','ph','hd','dc','cpm','cpc','mcpa','gcpa'].includes(k)?1:-1}draw()});
 document.getElementById('all').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='TH')e.target.click()});
 function chips(){const mk=(lab,opts,cur,id)=>'<span class="sub">'+lab+'</span>'+opts.map(o=>'<button class="chip" id="'+id+'-'+o+'" data-g="'+id+'" data-v="'+o+'" aria-pressed="'+(o===cur)+'">'+o+'</button>').join('');
@@ -122,6 +134,7 @@ function chips(){const mk=(lab,opts,cur,id)=>'<span class="sub">'+lab+'</span>'+
 document.getElementById('ctl').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.g==='f')ff=b.dataset.v;else fj=b.dataset.v;chips();draw()});
 chips();draw();
 const card=r=>'<div class="card">'+(r.b?'<img src="'+r.b+'" data-i="'+RI.get(r.n)+'" alt="'+r.n+'">':'')+'<div><b>'+r.n+'</b><span class="k">GA CV '+r.ga+'件 ／ '+(r.ga?yen(r.cost/r.ga):'CPA －')+'</span><br><span class="k">COST '+yen(r.cost)+' ・ CTR '+(r.ctr*100).toFixed(2)+'%</span></div></div>';
+document.getElementById('gc').innerHTML=B.filter(r=>teacher.includes(r.ph)).sort((a,b)=>{const k=r=>r.ga?r.gcpa:9e9-r.cost;return k(a)-k(b)}).map(card).join('');
 document.getElementById('gw').innerHTML=R.filter(r=>r.j==='勝ち').sort((a,b)=>a.gcpa-b.gcpa).map(card).join('');
 document.getElementById('gl').innerHTML=B.filter(r=>r.j==='負け').slice(0,12).map(card).join('');
 document.getElementById('gv').innerHTML=V.filter(r=>r.b).slice(0,12).map(card).join('');
