@@ -24,6 +24,7 @@ th{font-weight:700;font-size:12px;color:var(--mute);background:var(--panel);posi
 td:first-child,th:first-child,td.l,th.l{text-align:left}td.nm{white-space:normal;min-width:180px;font-weight:500;text-align:left}
 tr:last-child td{border-bottom:0}td.num{font-family:var(--num)}
 .fc{font-weight:700;color:var(--accent);background:var(--accent-soft)}th.fc{color:var(--accent)}.hi td.fc{background:var(--good-soft);color:var(--good)}.lo td.fc{background:var(--bad-soft);color:var(--bad)}
+tr.tot td{font-weight:700;border-top:2px solid var(--line)}tr.ch td{font-size:12.5px}tr.ch td.nm{padding-left:30px;font-weight:400;color:var(--mute)}tr.ch td.fc{font-weight:500;background:transparent}.br{margin-right:6px;color:var(--mute)}
 .hi{background:var(--good-soft)}.lo{background:var(--bad-soft)}
 .pill{display:inline-block;border-radius:20px;padding:1px 10px;font-size:12px;font-weight:700}
 .p-勝ち{background:var(--good-soft);color:var(--good)}.p-CVあり{background:var(--accent-soft);color:var(--accent)}.p-負け{background:var(--bad-soft);color:var(--bad)}.p-保留{background:var(--line);color:var(--mute)}
@@ -81,7 +82,7 @@ function cells(t){return [yen(t.cost),yen(t.cost/t.imp*1000),pct(t.clk,t.imp),ye
 const RI=new Map();function im(r){return r.t?'<button class="tb" data-i="'+RI.get(r.n)+'" aria-label="'+r.n+'を拡大"><img class="th" src="'+r.t+'" alt="'+r.n+'"></button>':''}
 const H=['COST','CPM','CTR','CPC','媒体CV','媒体CVR','媒体CPA','GA CV','GA CVR','GA CPA'];
 function tbl(label,list,mark={},show=H,focus=[],cnt=true){const ix=show.map(x=>H.indexOf(x));let h='<div class="tw"><table><tr><th>'+label+'</th>'+(cnt?'<th>CR数</th>':'')+show.map(x=>'<th class="'+(focus.includes(x)?'fc':'')+'">'+x+'</th>').join('')+'</tr>';
- list.forEach(([name,rs])=>{const t=agg(rs),c=cells(t);const one=rs.length===1&&rs[0].t?rs[0]:null;h+='<tr class="'+(mark[name]||'')+'"><td class="nm">'+(one?'<span class="nmc">'+im(one)+'<span>'+name+'</span></span>':name)+'</td>'+(cnt?'<td class="num">'+t.n+'</td>':'')+ix.map((i,k)=>'<td class="num '+(focus.includes(show[k])?'fc':'')+'">'+c[i]+'</td>').join('')+'</tr>'});return h+'</table></div>'}
+ list.forEach(([name,rs,lv])=>{const t=agg(rs),c=cells(t);const one=rs.length===1&&rs[0].t&&!lv?rs[0]:null;h+='<tr class="'+(mark[name]||'')+(lv===1?' ch':lv===0?' tot':'')+'"><td class="nm">'+(lv===1?'<span class="br">└</span>':'')+(one?'<span class="nmc">'+im(one)+'<span>'+name+'</span></span>':name)+'</td>'+(cnt?'<td class="num">'+t.n+'</td>':'')+ix.map((i,k)=>'<td class="num '+(focus.includes(show[k])?'fc':'')+'">'+c[i]+'</td>').join('')+'</tr>'});return h+'</table></div>'}
 R.forEach((r,i)=>RI.set(r.n,i));
 const by=(k,rs=R)=>{const m=new Map();rs.forEach(r=>{if(!m.has(r[k]))m.set(r[k],[]);m.get(r[k]).push(r)});return [...m]};
 const B=R.filter(r=>r.f==='バナー'),V=R.filter(r=>r.f==='動画'),T=agg(R);
@@ -89,17 +90,18 @@ document.getElementById('tiles').innerHTML=[['消化金額',yen(T.cost)],['GA CV
 const pick=ns=>ns.map(n=>[n,R.filter(r=>r.n===n)]);
 const ph=by('ph',B).filter(x=>['先生・レッスン風景','先生が生徒を補助','レッスン風景','レッスン風景＋先生','モデル単体のポーズ','モデル単体'].includes(x[0]));
 const teacher=['先生・レッスン風景','先生が生徒を補助','レッスン風景','レッスン風景＋先生'];
+const PHS={'先生・レッスン風景':'運動が苦手な初心者向け','先生が生徒を補助':'指導力&初心者訴求、マシンの優位性','レッスン風景':'キレイになるって、楽しい／駅名で呼びかけ','レッスン風景＋先生':'キレイになるって楽しい 縦長','モデル単体のポーズ':'5周年キャンペーン','モデル単体':'割引訴求、50%OFF'};
 const I=[
 ['形式','今の動画はGA CPAが約¥12万で、バナー（約¥7万）の約1.7倍。ただし、レッスンを体感できる動画はまだ試せていない','配信した動画は、名前と冒頭の静止画で見る限り、雰囲気・悩み・料金・キャンペーンの訴求が中心です。勝ちバナーに共通する「先生が補助する場面」と共感コピーを持つ、レッスンを体感できる動画は見当たりません（動画の中身は再生できていないので、要確認です）。媒体CPAはバナーとほぼ同じ（¥1,840と¥1,900）で、関心は取れています。動画という形式が負けたのではなく、当てるべき動画がまだ入っていない、と読めます。',
  tbl('形式',[['バナー',B],['動画',V]],{},['COST','媒体CPA','GA CV','GA CPA'],['媒体CPA','GA CPA']),'勝ちバナーの要素（先生の補助、運動が苦手な人への共感）を入れた体感動画を作って試す。評価はGA CVで行う。'],
-['写真','先生やレッスン風景の写真はGA CPA約¥5.6万。モデル単体の写真（約¥8.6万）より良い','先生・レッスン風景の4分類を合わせると、GA CVRは0.65%、GA CPAは約¥5.6万。モデル単体の写真（5周年キャンペーンの大半）は0.39%、約¥8.6万です。',
- tbl('写真の種類',[['先生・レッスン風景が写っている（合計）',B.filter(r=>teacher.includes(r.ph))],['モデル単体（合計）',B.filter(r=>r.ph.startsWith('モデル単体'))],...ph],{'先生・レッスン風景が写っている（合計）':'hi','モデル単体（合計）':'lo'},['COST','GA CV','GA CVR','GA CPA'],['GA CVR','GA CPA']),'新しいバナーは、先生が生徒に手を添えている写真か、レッスン中の写真を使う。'],
+['写真','先生やレッスン風景の写真はGA CPA約¥5.6万。モデル単体の写真（約¥8.6万）より良い','太字の行が合計で、その下の「└」の行が内訳（カッコ内は該当するシリーズ）です。先生・レッスン風景の合計は、GA CVR 0.65%、GA CPA 約¥5.6万。モデル単体の合計は0.39%、約¥8.6万です。',
+ tbl('写真の種類',[['先生・レッスン風景が写っている（合計）',B.filter(r=>teacher.includes(r.ph)),0],...teacher.map(k=>[k+'（'+PHS[k]+'）',B.filter(r=>r.ph===k),1]),['モデル単体（合計）',B.filter(r=>r.ph.startsWith('モデル単体')),0],...['モデル単体のポーズ','モデル単体'].map(k=>[k+'（'+PHS[k]+'）',B.filter(r=>r.ph===k),1])],{'先生・レッスン風景が写っている（合計）':'hi','モデル単体（合計）':'lo'},['COST','GA CV','GA CVR','GA CPA'],['GA CVR','GA CPA']),'新しいバナーは、先生が生徒に手を添えている写真か、レッスン中の写真を使う。'],
 ['見出しと割引','割引を主役にしたバナーはGA CPA約¥8.6万。帯やタグに留めたバナー（約¥6.1万）のほうが良い','割引を「帯・タグ」に置いたシリーズ（運動が苦手、指導力）はGA CPA約¥6.1万。割引を「主役」にしたシリーズ（5周年、割引訴求、50%OFF）は約¥8.6万で、GA CVRも低くなっています。',
  tbl('割引の扱い',by('dc',B).filter(x=>['帯・タグ','主役','小さく','無料体験のみ'].includes(x[0])),{'帯・タグ':'hi','主役':'lo'},['COST','GA CV','GA CVR','GA CPA'],['GA CVR','GA CPA']),'見出しは「運動が苦手」「続かなかった」などの共感コピーにし、割引額は帯に入れる。'],
 ['勝ちCR','GA CPAが4.5万円以下で勝っているのは、この6本','GA CV 2件以上、かつGA CPA 4.5万円以下のCRです。6本のうち5本が、先生またはレッスン風景の写真です。',
  tbl('CR',R.filter(r=>r.j==='勝ち').sort((a,b)=>a.cost/a.ga-b.cost/b.ga).map(r=>[r.n+'（'+r.ph+'）',[r]]),{},['COST','CTR','GA CV','GA CVR','GA CPA'],['GA CPA'],false),'この6本の写真と見出しの組み合わせを変えて、派生を5〜10本作る。'],
 ['対象の絞り込み','駅名で呼びかけるバナーは、CTRは低いがGA CPAは約¥1.5万で最も良い','「天王寺へ通勤している方へ」はCTR 0.60%で全体の半分ですが、GA CVRは2.80%（バナー平均の約6倍）、GA CPAは約¥1.5万です。新宿版は消化が¥9千で、まだ判断できる量ではありません。',
- tbl('CR',[...pick(['天王寺へ通勤している方へ_バナー','新宿駅へ通勤している方へ_バナー']),['バナー全体',B]],{'天王寺へ通勤している方へ_バナー':'hi'},['COST','CTR','GA CV','GA CVR','GA CPA'],['CTR','GA CVR','GA CPA']),'駅・エリア名を入れた「〜へ通勤している方へ」を、各エリアに展開する。'],
+ tbl('CR',[...pick(['天王寺へ通勤している方へ_バナー','新宿駅へ通勤している方へ_バナー']),['参考：バナー全体の合計',B,0]],{'天王寺へ通勤している方へ_バナー':'hi'},['COST','CTR','GA CV','GA CVR','GA CPA'],['CTR','GA CVR','GA CPA']),'駅・エリア名を入れた「〜へ通勤している方へ」を、各エリアに展開する。'],
 ['CTRとCPM','CTRが高い動画ほどGA CVRが低く、CPMが安い配信はGA CVが出ていない','動画01〜03はCTR 2.8〜5.2%と高いのに、GA CVRは0.10〜0.24%。大阪の動画はCPMが¥1,000〜1,500と安く、GA CVは0件です。逆に勝ちCRの指導力5は、CPMが¥6,441と高めです。',
  tbl('CR',pick(['動画02','動画01','動画03','肩こり_動画','ピラティス前後_動画','私を整える50分_動画','指導力&初心者訴求5','運動が苦手な初心者向け4']),{'動画02':'lo','動画01':'lo','動画03':'lo','肩こり_動画':'lo','ピラティス前後_動画':'lo','私を整える50分_動画':'lo','指導力&初心者訴求5':'hi','運動が苦手な初心者向け4':'hi'},['COST','CPM','CTR','GA CV','GA CVR','GA CPA'],['CPM','CTR','GA CVR'],false),'CTRやCPMの良さでCRを残さない。動画は、勝ちバナーと同じ中身（冒頭で呼びかけ、先生が補助する場面）で作り直す。'],
 ['媒体CVとのずれ','媒体CPAが最上位のCRは、GA CPAでは上位に入らない','媒体CPAが良い順に並べた上位8本（消化5万円以上）です。媒体CPAは¥1,150〜1,450ですが、最上位の2本（5周年キャンペーン16、新動画01）はGA CVが0件です。媒体CPAの順位は、GA CPAの順位と合っていません。',
