@@ -57,8 +57,8 @@ details.acc{background:var(--panel);border:1px solid var(--line);border-radius:8
 <header><p class="sub">the SILK グループ体験予約 ｜ Meta自社アカウント ｜ 2026/10/1〜11/12</p>
 <h1>SILKグループMeta CR分析</h1>
 <p>結論：<b>コピーの主語が「見る人」で、写真に「自分が通っている姿」が重なるバナー</b>が、GA CPAが一番良い。「運動が苦手」「続かなかった」と見る人の気持ちを代弁し、普通の生徒がレッスンを受けている写真を使ったものです。一方、コピーの主語が「SILK」のバナー（「10人に1人の狭き門」「合格率わずか10%」など、講師の選抜率を打ち出したもの）は、3本で¥15.3万使ってGA CVは1件、GA CPA約¥15.3万でした（下の比較を参照）。今の動画は、媒体CVでは良く見えるがGAの予約にはつながっていない。レッスンを体感できる動画はまだ試せておらず、次に当てるべきはそこです。割引主役のバナーもGA CPAは高め。下に、そう判断した数値を全CR分載せています。</p>
-<div class="cmp"><div><h3>勝ち：主語が「見る人」　<span class="sub">運動が苦手な初心者向け 計 GA CPA <b id="c1"></b></span></h3><div class="gal" id="ca"></div></div><div><h3>負け：主語が「SILK」　<span class="sub">講師の選抜率を打ち出した3本 計 GA CPA <b id="c2"></b></span></h3><div class="gal" id="cb"></div></div></div>
-<details class="acc"><summary>先生・レッスン風景が写っているバナーを見る</summary><p class="sub">写真が先生・レッスン風景のバナー。GA CPAの良い順（GA CV 0件は消化の多い順で後ろ）。画像を押すと拡大します。</p><div class="gal" id="gc"></div></details>
+<div class="cmp"><div><h3>勝ち：主語が「見る人」　<span class="sub">該当11本 計 GA CPA <b id="c1"></b></span></h3><div class="gal" id="ca"></div></div><div><h3>負け：主語が「SILK」　<span class="sub">講師の選抜率を打ち出した3本 計 GA CPA <b id="c2"></b></span></h3><div class="gal" id="cb"></div></div></div>
+<details class="acc"><summary>主語が「見る人」のバナーと、主語が「SILK」のバナーを一覧で見る</summary><p class="sub">見出しのコピーで分けています。GA CPAの良い順（GA CV 0件は消化の多い順で後ろ）。画像を押すと拡大します。</p><h3>主語が「見る人」（「運動が苦手」などの共感、「〇〇駅へ通勤している方へ」などの呼びかけ）　<span class="sub">計 GA CPA <b id="cs1"></b></span></h3><div class="gal" id="gc"></div><h3>主語が「SILK」（「10人に1人の狭き門」など講師の選抜率）　<span class="sub">計 GA CPA <b id="cs2"></b></span></h3><div class="gal" id="gc2"></div></details>
 <p class="premise"><b>前提：このレポートはGA CVで評価しています。</b>媒体CV（Metaのカスタムイベント）はGA CVの約43倍あり、予約完了以外も数えています。媒体CPAが最上位の「5周年キャンペーン16」「新動画01」はGA CVが0件で、媒体CPAの順位はGA CPAの順位と合いません。媒体CVが予約完了だけを数えるよう、イベント設定の見直しが必要です。</p></header>
 <div class="base"><p class="sub"><b>判断の基準と、分析の母数</b>（期間全体・グループ配信の合計）。下の示唆は、各CRや要素がこの平均GA CPA ¥81,013より良いか悪いかで見ています。GA CV・消化金額・CR数は分析の母数で、結論の信頼度の目安です。GA CVは全体で60件、CR単体では1〜6件なので、CR単体の順位は傾向として見て、シリーズや要素でまとめた差を重視してください。</p><div class="tiles" id="tiles"></div></div>
 
@@ -146,8 +146,11 @@ chips();draw();
 const card=r=>'<div class="card">'+(r.b?'<img src="'+r.b+'" data-i="'+RI.get(r.n)+'" alt="'+r.n+'">':'')+'<div><b>'+r.n+'</b><span class="k">GA CV '+r.ga+'件 ／ '+(r.ga?yen(r.cost/r.ga):'CPA －')+'</span><br><span class="k">COST '+yen(r.cost)+' ・ CTR '+(r.ctr*100).toFixed(2)+'%</span></div></div>';
 document.getElementById('ca').innerHTML=['運動が苦手な初心者向け4','運動が苦手な初心者向け2'].map(n=>card(R[RI.get(n)])).join('');
 document.getElementById('cb').innerHTML=['指導力&初心者訴求2','指導力&初心者訴求3'].map(n=>card(R[RI.get(n)])).join('');
-{const g=x=>{const t=agg(R.filter(r=>r.s===x));return yen(t.cost/t.ga)};document.getElementById('c1').textContent=g('運動が苦手な初心者向け');{const t=agg(R.filter(r=>['指導力&初心者訴求1','指導力&初心者訴求2','指導力&初心者訴求3'].includes(r.n)));document.getElementById('c2').textContent=yen(t.cost/t.ga)}}
-document.getElementById('gc').innerHTML=B.filter(r=>teacher.includes(r.ph)).sort((a,b)=>{const k=r=>r.ga?r.gcpa:9e9-r.cost;return k(a)-k(b)}).map(card).join('');
+{const g=x=>{const t=agg(R.filter(r=>r.s===x));return yen(t.cost/t.ga)};{const t=agg(R.filter(r=>['指導力&初心者訴求1','指導力&初心者訴求2','指導力&初心者訴求3'].includes(r.n)));document.getElementById('c2').textContent=yen(t.cost/t.ga)}}
+const VA=B.filter(r=>['運動が苦手な初心者向け','駅名で呼びかけ'].includes(r.s)||['指導力&初心者訴求5','指導力&初心者訴求7','指導力&初心者訴求11'].includes(r.n)),VB=B.filter(r=>['指導力&初心者訴求1','指導力&初心者訴求2','指導力&初心者訴求3'].includes(r.n));
+{const c=x=>{const t=agg(x);return yen(t.cost/t.ga)+'（'+x.length+'本・GA CV '+t.ga+'件）'};document.getElementById('cs1').textContent=c(VA);{const t=agg(VA);document.getElementById('c1').textContent=yen(t.cost/t.ga)}document.getElementById('cs2').textContent=c(VB)}
+const srt=(a,b)=>{const k=r=>r.ga?r.gcpa:9e9-r.cost;return k(a)-k(b)};document.getElementById('gc2').innerHTML=VB.slice().sort(srt).map(card).join('');
+document.getElementById('gc').innerHTML=VA.sort((a,b)=>{const k=r=>r.ga?r.gcpa:9e9-r.cost;return k(a)-k(b)}).map(card).join('');
 document.getElementById('gw').innerHTML=R.filter(r=>r.j==='勝ち').sort((a,b)=>a.gcpa-b.gcpa).map(card).join('');
 document.getElementById('gl').innerHTML=B.filter(r=>r.j==='負け').slice(0,12).map(card).join('');
 document.getElementById('gv').innerHTML=V.filter(r=>r.b).slice(0,12).map(card).join('');
