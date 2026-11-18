@@ -3,33 +3,38 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{width:1080px;height:1920px;overflow:hidden;background:#F6F2EE;font-family:'Noto Sans JP',sans-serif;color:#4A3F3A;position:relative}
-.ph{position:absolute;left:0;top:0;width:1080px;height:480px;background:url(class2.jpg) 50% 26%/cover}
-.ph:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(246,242,238,0) 72%,#F6F2EE 100%)}
-.cap{position:absolute;left:40px;top:250px;background:rgba(255,255,255,.88);border-radius:999px;padding:8px 20px;font-size:22px;font-weight:700;color:#8C6E62;letter-spacing:.06em}
-.r{position:absolute;left:80px;top:405px;width:920px}
-.logo{width:200px;display:block;margin-bottom:14px}
-.lead{margin-top:20px;font-size:36px;font-weight:700;color:#A2867A;letter-spacing:.12em;display:flex;align-items:center;gap:14px;white-space:nowrap}
-.lead:after{content:"";flex:1;height:2px;background:linear-gradient(90deg,#C7A497,rgba(199,164,151,0))}
-.big{font-family:'Shippori Mincho',serif;font-weight:800;font-size:100px;line-height:1.05;margin-top:8px;letter-spacing:.02em;color:#4A3F3A}
+.ph{position:absolute;left:0;top:0;width:1080px;height:770px;background:url(class2.jpg) 50% 24%/cover}
+.ph:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(246,242,238,0) 66%,#F6F2EE 100%)}
+.logo{position:absolute;left:80px;top:648px;width:200px}
+.bdgs{position:absolute;right:60px;top:532px;display:flex;gap:14px}
+.b{width:186px;height:186px;border-radius:50%;background:rgba(255,255,255,.92);border:2px solid #B7A090;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Shippori Mincho',serif;font-weight:700;color:#8A7363;line-height:1.1;box-shadow:0 4px 14px rgba(90,60,50,.12)}
+.b .s{font-size:26px}.b .l{font-size:52px}.b .l small{font-size:26px}.b .m{font-size:40px;line-height:1.08}
+.b .n{font-size:34px}.b .n small{font-size:18px;writing-mode:vertical-rl;margin-right:2px}.b .f{font-size:13px;font-family:'Noto Sans JP';font-weight:500;margin-top:4px}
+.r{position:absolute;left:80px;top:732px;width:920px}
+.big{font-family:'Shippori Mincho',serif;font-weight:800;font-size:94px;line-height:1.05;letter-spacing:.02em}
 .date{margin-top:6px;display:flex;align-items:baseline;gap:8px;font-family:'Shippori Mincho',serif;color:#B5776A}
-.date b{font-size:80px;font-weight:800;line-height:1}
-.date span{font-family:'Noto Sans JP';font-size:40px;font-weight:700;color:#4A3F3A}
-.copy{margin-top:20px;padding-top:16px;border-top:2px solid #E6D6CE;font-family:'Shippori Mincho',serif;font-weight:700;font-size:38px;line-height:1.38;color:#5C4E47;white-space:nowrap}
+.date b{font-size:72px;font-weight:800;line-height:1}
+.date span{font-family:'Noto Sans JP';font-size:36px;font-weight:700;color:#4A3F3A}
+.cp{margin-top:16px;display:flex;align-items:center;gap:18px}
+.rb{color:#9A7B6E;font-weight:700;font-size:32px;letter-spacing:.1em;white-space:nowrap}
+.tag{display:inline-flex;align-items:baseline;gap:10px;background:#B9A190;border-radius:10px;padding:4px 20px;font-size:28px;font-weight:700;color:#fff;white-space:nowrap}
+.tag b{font-family:'Shippori Mincho',serif;font-size:46px}
+.copy{margin-top:14px;padding-top:12px;border-top:2px solid #E6D6CE;font-family:'Shippori Mincho',serif;font-weight:700;font-size:35px;color:#5C4E47;white-space:nowrap}
 .copy em{font-style:normal;color:#B5776A}
-.tag{margin-top:24px;display:inline-flex;align-items:baseline;gap:12px;background:#B9A190;border-radius:10px;padding:10px 24px;font-size:30px;font-weight:700;color:#fff}
-.tag b{font-family:'Shippori Mincho',serif;font-size:52px}
-.bdg{display:block;width:600px;margin-top:26px}
-.cp{margin-top:30px;display:inline-flex;flex-direction:column;align-items:flex-start}.cp .tag{margin-top:0;border-radius:8px;white-space:nowrap;font-size:28px;padding:10px 22px 12px;display:flex;flex-direction:column;align-items:flex-start;gap:0}.cp .tag b{font-size:58px;line-height:1.05;margin-right:6px}.cp .t1{font-size:26px}.cp .t2{display:flex;align-items:baseline}.rb{color:#9A7B6E;font-weight:700;font-size:34px;letter-spacing:.12em;padding:0 0 8px 2px}
-.mid{display:flex;align-items:center;justify-content:space-between;margin-top:18px;gap:16px}.mid .cp{margin-top:0}.mid .bdg{width:560px;margin-top:0}
-.band{position:absolute;left:0;top:1058px;width:1080px}
+.band{position:absolute;left:0;top:1094px;width:1080px}
 </style></head><body>
 <div class="ph"></div>
+<img class="logo" src="logo.png" alt="the SILK">
+<div class="bdgs">
+ <div class="b"><span class="s">初心者</span><span class="l">90<small>%</small></span><span class="s">以上</span></div>
+ <div class="b"><span class="s">安心の</span><span class="m">女性<br>専用</span></div>
+ <div class="b"><span class="s">体験者数</span><span class="n"><small>累計</small>80,000<small style="writing-mode:horizontal-tb;font-size:22px">人</small></span><span class="s">突破</span><span class="f">※2026年9月時点</span></div>
+</div>
 <div class="r">
- <img class="logo" src="logo.png" alt="the SILK">
  <div class="big">まもなく終了</div>
  <div class="date"><b>11/30</b><span>（月）まで</span></div>
- <div class="mid"><div class="cp"><div class="rb">5周年キャンペーン</div><div class="tag"><span class="t1">3か月最大</span><span class="t2"><b>¥40,000</b>OFF</span></div></div><img class="bdg" src="badges.png" alt=""></div>
- <div class="copy">運動が<em>苦手な人ほど</em>、<br>通いやすい女性専用ピラティス。</div>
+ <div class="cp"><div class="rb">5周年キャンペーン</div><div class="tag">3か月最大<b>¥40,000</b>OFF</div></div>
+ <div class="copy">運動が<em>苦手な人ほど</em>、通いやすい女性専用ピラティス。</div>
 </div>
 <img class="band" src="band.png" alt="">
 </body></html>
