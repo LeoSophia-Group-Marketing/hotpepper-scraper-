@@ -1,0 +1,2 @@
+const { chromium } = require('playwright');
+(async()=>{const b=await chromium.launch();for(const [f,h] of [['dl_sq.html',1080],['dl_st.html',1920]]){if(!require('fs').existsSync(f))continue;const p=await b.newPage({viewport:{width:1080,height:h}});await p.goto('file://'+process.cwd()+'/'+f,{waitUntil:'networkidle'});await p.evaluate(()=>document.fonts.ready);await p.screenshot({path:f.replace('.html','.png')});}await b.close()})();
