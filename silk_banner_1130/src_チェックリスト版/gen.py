@@ -26,10 +26,12 @@ def lead90(x,y,t,w=None,fs=32,two=False):
   br='<br>' if two else '、'
   return f'<div style="position: absolute; left: {x}px; top: {y}px; display: flex; align-items: center; gap: 16px; font-size: {fs}px; font-weight: 700; color: {TXT}; line-height: 1.4">{PIE.format(s=fs*2,soft=t["soft"],ac=t["ac"])}<span>体験の方の<span style="color: {t["ac"]}">90%以上</span>が{br}ピラティス初心者</span></div>'
 def band(top,t,ever):
-  l2='ウェア・ソックスの貸出あり' if ever else '入会金・登録手数料 0円'
-  return (f'<div style="position: absolute; left: 0; right: 0; top: {top}px; height: 190px; box-sizing: border-box; padding: 0 64px; background: linear-gradient(100deg, {t["b1"]} 0%, {t["b2"]} 100%); color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; z-index: 6">'
-   f'<div style="display: flex; flex-direction: column; gap: 6px; line-height: 1.3"><div style="font-size: 40px; font-weight: 700">初回体験クラス 50分</div><div style="font-size: 38px; font-weight: 500">{l2}</div></div>'
-   f'<div style="font-weight: 700; font-size: 120px; line-height: 1; letter-spacing: -0.02em"><span style="font-size: 64px; margin-right: 4px">¥</span>0</div></div>')
+  l2='ウェア・ソックスの貸出あり' if ever else '入会金・登録手数料も 0円'
+  return (f'<div style="position: absolute; left: 0; right: 0; top: {top}px; height: 190px; box-sizing: border-box; padding: 16px 40px 0 40px; background: linear-gradient(100deg, {t["b1"]} 0%, {t["b2"]} 100%); color: #FFFFFF; display: flex; flex-direction: column; align-items: center; gap: 6px; z-index: 6">'
+   f'<div style="display: flex; align-items: center; justify-content: center; gap: 28px; width: 1000px; height: 112px; box-sizing: border-box; border-radius: 56px; background: linear-gradient(180deg, #FFFFFF 0%, #F6F1EF 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.95); color: {TXT}">'
+   f'<span style="font-size: 52px; font-weight: 700; letter-spacing: 0.02em">初回体験クラス<span style="font-size: 44px; margin-left: 10px">50分が</span></span>'
+   f'<span style="font-weight: 800; font-size: 104px; line-height: 1; color: {t["b1"]}; letter-spacing: -0.02em"><span style="font-size: 56px; margin-right: 4px">¥</span>0</span></div>'
+   f'<div style="font-size: 34px; font-weight: 500">{l2}</div></div>')
 def h1(x,y,html,fs,lh=1.28,w=None,extra=''):
   return f'<h1 style="position: absolute; left: {x}px; top: {y}px; margin: 0; {M}; font-weight: 800; font-size: {fs}px; line-height: {lh}; letter-spacing: 0.02em; color: {TXT}; white-space: nowrap; {extra}">{html}</h1>'
 def sub(x,y,html,fs=34):
@@ -49,22 +51,28 @@ def wave(w,h,amp=40):
 def LIGHT(t,cx,cy,h,rays=True):
   g=f'<div style="position: absolute; inset: 0; background: radial-gradient(circle at {cx}px {cy}px, #FFFFFF 0%, {t["g1"]} 28%, {t["deep"]} 100%)"></div>'
   if not rays: return g
-  ang=[(-6,7),(14,10),(36,8),(58,11),(80,6)] if cx<540 else [(100,6),(122,11),(144,8),(166,10),(186,7)]
-  import math
+  sweeps=[(0.55,140),(0.8,90),(1.05,170),(1.3,110)]
   ps=''
-  for a,wd in ang:
-    L=2400;a1=math.radians(a-wd/2);a2=math.radians(a+wd/2)
-    ps+=f'<polygon points="{cx},{cy} {cx+L*math.cos(a1):.0f},{cy+L*math.sin(a1):.0f} {cx+L*math.cos(a2):.0f},{cy+L*math.sin(a2):.0f}" fill="url(#rg{cx})"/>'
-  return g+f'<svg aria-hidden="true" width="1080" height="{h}" viewBox="0 0 1080 {h}" style="position: absolute; left: 0; top: 0; filter: blur(5px)"><defs><radialGradient id="rg{cx}" cx="{cx}" cy="{cy}" r="1300" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF" stop-opacity="1"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient></defs>{ps}</svg>'
+  for k,(f,wd) in enumerate(sweeps):
+    if cx<540: d=f"M{cx-200} {cy+int(260*f)} C {int(380*f)} {cy+int(60*f)}, {int(700*f)} {cy+int(700*f)}, {int(1300*f)} {cy+int(520*f)}"
+    else: d=f"M{cx+200} {cy+int(260*f)} C {1080-int(380*f)} {cy+int(60*f)}, {1080-int(700*f)} {cy+int(700*f)}, {1080-int(1300*f)} {cy+int(520*f)}"
+    ps+=f'<path d="{d}" fill="none" stroke="url(#rg{cx}{cy})" stroke-width="{wd}" stroke-linecap="round"/>'
+  return g+f'<svg aria-hidden="true" width="1080" height="{h}" viewBox="0 0 1080 {h}" style="position: absolute; left: 0; top: 0; filter: blur(14px); opacity: 0.9"><defs><radialGradient id="rg{cx}{cy}" cx="{cx}" cy="{cy}" r="1300" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF" stop-opacity="1"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0.1"/></radialGradient></defs>{ps}</svg>'
 def SILK(t,y,h,w=1080):
   return (f'<svg aria-hidden="true" width="{w}" height="{h}" viewBox="0 0 {w} {h}" style="position: absolute; left: 0; top: {y}px"><defs><linearGradient id="sk{y}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{t["soft"]}"/><stop offset="1" stop-color="{t["deep"]}"/></linearGradient></defs>'
    f'<path d="M0 {h*0.42:.0f} C {w*0.3:.0f} {h*0.05:.0f}, {w*0.55:.0f} {h*0.85:.0f}, {w} {h*0.25:.0f} L{w} {h} L0 {h} Z" fill="url(#sk{y})" opacity="0.65"/>'
    f'<path d="M0 {h*0.62:.0f} C {w*0.35:.0f} {h*0.30:.0f}, {w*0.62:.0f} {h*1.0:.0f}, {w} {h*0.48:.0f} L{w} {h} L0 {h} Z" fill="url(#sk{y})"/>'
    f'<path d="M0 {h*0.62:.0f} C {w*0.35:.0f} {h*0.30:.0f}, {w*0.62:.0f} {h*1.0:.0f}, {w} {h*0.48:.0f}" fill="none" stroke="#FFFFFF" stroke-width="4" opacity="0.8"/></svg>')
-def BAND2(t,y,h,ang): return f'<div style="position: absolute; left: -200px; width: 1480px; top: {y}px; height: {h}px; transform: rotate({ang}deg); background: linear-gradient(90deg, {t["deep"]} 0%, {t["soft"]} 50%, {t["deep"]} 100%); border-top: 6px solid #FFFFFF; border-bottom: 6px solid #FFFFFF; box-sizing: border-box"></div>'
+def BAND2(t,y,h,ang):
+  d=f"M-80 {y+h*0.9:.0f} C 300 {y-h*0.2:.0f}, 700 {y+h*1.3:.0f}, 1160 {y+h*0.1:.0f}"
+  return (f'<svg aria-hidden="true" width="1080" height="1920" viewBox="0 0 1080 1920" style="position: absolute; left: 0; top: 0"><defs><linearGradient id="bd{y}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="{t["deep"]}"/><stop offset="0.5" stop-color="{t["soft"]}"/><stop offset="1" stop-color="{t["deep"]}"/></linearGradient></defs>'
+   f'<path d="{d}" fill="none" stroke="#FFFFFF" stroke-width="{h+16}" stroke-linecap="round"/><path d="{d}" fill="none" stroke="url(#bd{y})" stroke-width="{h}" stroke-linecap="round"/></svg>')
 def RINGS(t,cx,cy,rs): return f'<div style="position: absolute; left: {cx-rs[-1]}px; top: {cy-rs[-1]}px; width: {2*rs[-1]}px; height: {2*rs[-1]}px; border-radius: 50%; background: radial-gradient(circle, #FFFFFF 0%, rgba(255,255,255,0.85) 35%, rgba(255,255,255,0) 70%)"></div>'+''.join(f'<div style="position: absolute; left: {cx-r}px; top: {cy-r}px; width: {2*r}px; height: {2*r}px; border-radius: 50%; border: 8px solid rgba(255,255,255,0.9); box-shadow: 0 0 0 10px {t["soft"]}"></div>' for r in rs)
 def WIN(x,y,t,n=3,w=130,h=300,gap=40,skew=-28):
-  return ''.join(f'<div style="position: absolute; left: {x+i*(w+gap)}px; top: {y}px; width: {w}px; height: {h}px; transform: skewX({skew}deg); background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.15) 100%); filter: blur(3px)"></div>' for i in range(n))
+  W=n*w+(n-1)*gap
+  return (f'<svg aria-hidden="true" width="{W+200}" height="{h+200}" viewBox="0 0 {W+200} {h+200}" style="position: absolute; left: {x-100}px; top: {y-100}px; filter: blur(6px)">'
+   + ''.join(f'<path d="M{100+i*(w+gap)*0.9:.0f} {100+h:.0f} C {100+i*(w+gap)*0.9+w*0.2:.0f} {100+h*0.4:.0f}, {100+i*(w+gap)*0.9+w*1.6:.0f} {100+h*0.5:.0f}, {100+i*(w+gap)*0.9+w*1.9:.0f} 100" fill="none" stroke="#FFFFFF" stroke-opacity="{0.85-i*0.15:.2f}" stroke-width="{w*0.55:.0f}" stroke-linecap="round"/>' for i in range(n))
+   + '</svg>')
 def RIB(t,pts,wd,id_):
   # thick flowing ribbon along a cubic path, with white edge highlight
   d=f"M{pts[0]} C {pts[1]}, {pts[2]}, {pts[3]}"
@@ -202,7 +210,8 @@ D['F_sensei_story']=('通常 先生がそばで 9:16',1920,t,bg(t),[
 t=TH['pink']
 D['G_rainen']=('通常 来年こそ 4:5',1350,t,bg(t),[
  LIGHT(t,820,300,1160,False),
- RINGS(t,820,320,[290,400,520]),
+ RIB(t,['1200 40','640 -40','560 520','1180 760'],120,'g1'),
+ RIB(t,['1220 300','760 320','820 1000','520 1160'],70,'g2'),
  img('CLS',600,80,440,1000,f'border-radius: 220px 220px 24px 24px; border: 10px solid #FFFFFF; box-sizing: border-box; {SHP}','45% 35%','マシンピラティスのクラスを受ける女性たち'),
  logo(64,64),lead90(64,170,t,two=True),
  h1(64,330,f'来年こそ、<br>運動を<br>{BIG(t,"続けられる",100)}<br>私に。',84,1.3),
@@ -211,7 +220,7 @@ D['G_rainen']=('通常 来年こそ 4:5',1350,t,bg(t),[
  band(1160,t,True)])
 D['G_rainen_story']=('通常 来年こそ 9:16',1920,t,bg(t),[
  LIGHT(t,900,800,1920,False),
- RINGS(t,900,800,[260,360,460]),
+ RIB(t,['1200 260','620 200','560 900','1200 1100'],120,'g1'),
  img('WIDE',0,0,1080,760,'','50% 30%','先生が前で教えるクラスの様子'),
  f'<div style="position: absolute; left: 0; top: 540px; width: 1080px; height: 240px; background: linear-gradient(180deg, rgba(251,243,241,0) 0%, {t["g1"]} 100%)"></div>',
  logo(826,820,190),
