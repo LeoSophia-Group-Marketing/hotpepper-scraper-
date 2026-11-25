@@ -28,12 +28,12 @@ def lead90(x,y,t,w=None,fs=32,two=False):
   return f'<div style="position: absolute; left: {x}px; top: {y}px; display: flex; align-items: center; gap: 16px; font-size: {fs}px; font-weight: 700; color: {TXT}; line-height: 1.4">{PIE.format(s=fs*2,soft=t["soft"],ac=t["ac"])}<span>体験の方の<span style="color: {t["ac"]}">90%以上</span>が{br}ピラティス初心者</span></div>'
 def band(top,t,ever):
   l2='ウェア・ソックスの貸出あり' if ever else '入会金・登録手数料も 0円'
-  return (f'<div style="position: absolute; left: 0; right: 0; top: {top}px; height: 190px; box-sizing: border-box; padding: 0 64px; background: linear-gradient(100deg, {t["b1"]} 0%, {t["b2"]} 100%); color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; z-index: 6">'
-   f'<div style="display: flex; flex-direction: column; gap: 0; line-height: 1.2">'
-   f'<div style="display: flex; align-items: baseline; gap: 18px; white-space: nowrap"><span style="font-size: 48px; font-weight: 700; letter-spacing: 0.02em">初回体験クラス 50分</span>'
-   f'<span style="font-weight: 700; font-size: 120px; line-height: 1; letter-spacing: -0.02em"><span style="font-size: 64px; margin-right: 4px">¥</span>0</span></div>'
-   f'<div style="font-size: 32px; font-weight: 500; opacity: 0.9">{l2}</div></div>'
-   f'<img src="@LOGO@" alt="the SILK" style="width: 210px; filter: brightness(0) invert(1)"></div>')
+  return (f'<div style="position: absolute; left: 0; right: 0; top: {top}px; height: 190px; box-sizing: border-box; padding: 0 44px; background: linear-gradient(100deg, {t["b1"]} 0%, {t["b2"]} 100%); color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; z-index: 6">'
+   f'<div style="display: flex; flex-direction: column; gap: 2px; line-height: 1.1">'
+   f'<div style="display: flex; align-items: baseline; gap: 14px; white-space: nowrap"><span style="font-size: 58px; font-weight: 700">初回体験レッスン 50分</span>'
+   f'<span style="font-weight: 700; font-size: 126px; line-height: 0.95; letter-spacing: -0.02em"><span style="font-size: 72px; margin-right: 4px">¥</span>0</span></div>'
+   f'<div style="font-size: 38px; font-weight: 500; opacity: 0.92; white-space: nowrap">{l2}</div></div>'
+   f'<img src="@LOGO@" alt="the SILK" style="width: 170px; flex: none; filter: brightness(0) invert(1)"></div>')
 def h1(x,y,html,fs,lh=1.28,w=None,extra=''):
   return f'<h1 style="position: absolute; left: {x}px; top: {y}px; margin: 0; {M}; font-weight: 800; font-size: {fs}px; line-height: {lh}; letter-spacing: 0.02em; color: {TXT}; white-space: nowrap; {extra}">{html}</h1>'
 def sub(x,y,html,fs=34):
