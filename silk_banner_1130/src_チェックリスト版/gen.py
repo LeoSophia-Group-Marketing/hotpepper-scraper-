@@ -27,11 +27,9 @@ def lead90(x,y,t,w=None,fs=32,two=False):
   return f'<div style="position: absolute; left: {x}px; top: {y}px; display: flex; align-items: center; gap: 16px; font-size: {fs}px; font-weight: 700; color: {TXT}; line-height: 1.4">{PIE.format(s=fs*2,soft=t["soft"],ac=t["ac"])}<span>体験の方の<span style="color: {t["ac"]}">90%以上</span>が{br}ピラティス初心者</span></div>'
 def band(top,t,ever):
   l2='ウェア・ソックスの貸出あり' if ever else '入会金・登録手数料も 0円'
-  return (f'<div style="position: absolute; left: 0; right: 0; top: {top}px; height: 190px; box-sizing: border-box; padding: 16px 40px 0 40px; background: linear-gradient(100deg, {t["b1"]} 0%, {t["b2"]} 100%); color: #FFFFFF; display: flex; flex-direction: column; align-items: center; gap: 6px; z-index: 6">'
-   f'<div style="display: flex; align-items: center; justify-content: center; gap: 28px; width: 1000px; height: 112px; box-sizing: border-box; border-radius: 56px; background: linear-gradient(180deg, #FFFFFF 0%, #F6F1EF 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.95); color: {TXT}">'
-   f'<span style="font-size: 52px; font-weight: 700; letter-spacing: 0.02em">初回体験クラス<span style="font-size: 44px; margin-left: 10px">50分が</span></span>'
-   f'<span style="font-weight: 800; font-size: 104px; line-height: 1; color: {t["b1"]}; letter-spacing: -0.02em"><span style="font-size: 56px; margin-right: 4px">¥</span>0</span></div>'
-   f'<div style="font-size: 34px; font-weight: 500">{l2}</div></div>')
+  return (f'<div style="position: absolute; left: 0; right: 0; top: {top}px; height: 190px; box-sizing: border-box; padding: 0 64px; background: linear-gradient(100deg, {t["b1"]} 0%, {t["b2"]} 100%); color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; z-index: 6">'
+   f'<div style="display: flex; flex-direction: column; gap: 4px; line-height: 1.3"><div style="font-size: 50px; font-weight: 700; letter-spacing: 0.02em">初回体験クラス 50分<span style="font-size: 40px">が</span></div><div style="font-size: 32px; font-weight: 500; opacity: 0.9">{l2}</div></div>'
+   f'<div style="font-weight: 700; font-size: 130px; line-height: 1; letter-spacing: -0.02em"><span style="font-size: 68px; margin-right: 4px">¥</span>0</div></div>')
 def h1(x,y,html,fs,lh=1.28,w=None,extra=''):
   return f'<h1 style="position: absolute; left: {x}px; top: {y}px; margin: 0; {M}; font-weight: 800; font-size: {fs}px; line-height: {lh}; letter-spacing: 0.02em; color: {TXT}; white-space: nowrap; {extra}">{html}</h1>'
 def sub(x,y,html,fs=34):
