@@ -190,7 +190,8 @@ def ribbon(y,h,t): return f'<div style="position: absolute; left: 0; right: 0; t
 D['F_sensei']=('通常 先生がそばで 4:5',1350,t,bg(t),[
  LIGHT(t,1060,0,1160,False),
  logo(64,64),lead90(64,170,t),
- h1(64,270,f'はじめてでも、<br>先生が{EMPH(t,"そばで")}<br>教えます。',88),
+ h1(64,270,f'はじめてでも、<br>先生が{EMPH(t,"そばで")}教えます。',80),
+ sub(64,500,f'<span style="color: {t["ac"]}; font-weight: 700">採用率10%未満</span>の先生が、その場で声をかけます。',36),
  BAND2(t,770,250,-9),
  img('BACK',64,680,410,410,f'border-radius: 24px; border: 8px solid #FFFFFF; box-sizing: border-box; {SHP}','50% 30%','先生が生徒の背中に手を添えて補助している様子'),
  img('LEG',606,640,410,410,f'border-radius: 24px; border: 8px solid #FFFFFF; box-sizing: border-box; {SHP}','50% 40%','先生が生徒の脚の動きを補助している様子'),
@@ -203,30 +204,42 @@ D['F_sensei_story']=('通常 先生がそばで 9:16',1920,t,bg(t),[
  img('LEG',576,270,440,460,f'border-radius: 24px; border: 8px solid #FFFFFF; box-sizing: border-box; {SHP}','50% 40%','先生が生徒の脚の動きを補助している様子'),
  tag(84,720,'姿勢を手で整える',t),tag(596,670,'動きをその場で補助',t),
  logo(64,830,190),lead90(64,930,t),
- h1(64,1030,f'はじめてでも、<br>先生が{EMPH(t,"そばで")}教えます。',84),
+ h1(64,1010,f'はじめてでも、<br>先生が{EMPH(t,"そばで")}教えます。',84),
+ sub(64,1250,f'<span style="color: {t["ac"]}; font-weight: 700">採用率10%未満</span>の先生が、その場で声をかけます。',36),
  band(1370,t,True)])
 # ---------- G 来年こそ（通常）
 t=TH['pink']
+def STATS(x,y,w,t,h=150,nfs=54):
+  cw=(w-40)//3
+  items=[('ピラティス初心者','90','%以上'),('体験者数 累計','80,000','人'),('インストラクター採用率','10','%未満')]
+  return ''.join(f'<div style="position: absolute; left: {x+k*(cw+20)}px; top: {y}px; width: {cw}px; height: {h}px; box-sizing: border-box; border-radius: 18px; {CARD}; border-top: 5px solid {t["ac"]}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: {TXT}; z-index: 3"><div style="font-size: 24px; font-weight: 700; white-space: nowrap">{a}</div><div style="{M}; font-weight: 800; font-size: {nfs}px; line-height: 1.05; color: {t["ac"]}; white-space: nowrap">{b}<span style="font-size: {int(nfs*0.5)}px">{c}</span></div></div>' for k,(a,b,c) in enumerate(items))
+def MEMO(x,y,w,t,fs=32):
+  chk=f'<svg width="{fs}" height="{fs}" viewBox="0 0 24 24" fill="none" stroke="{t["ac"]}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M4 12l5 5L20 6"/></svg>'
+  items=['マシンが動きを支えてくれる','音楽に合わせて楽しく動ける','1回で全身をまんべんなく']
+  li=''.join(f'<div style="display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 2px dashed {t["soft"]}; white-space: nowrap">{chk}{it}</div>' for it in items)
+  return f'<div style="position: absolute; left: {x}px; top: {y}px; width: {w}px; box-sizing: border-box; padding: 18px 26px 14px; border-radius: 16px; {CARD}; color: {TXT}; font-size: {fs}px; font-weight: 700; z-index: 3"><div style="font-size: 26px; color: {t["ac"]}; margin-bottom: 4px">続けられる理由</div>{li}</div>'
+NOTE=lambda x,y:f'<p style="position: absolute; left: {x}px; top: {y}px; margin: 0; font-size: 24px; color: {TXT}; opacity: 0.8">※体験者数は2026年9月時点</p>'
+t=TH['pink']
 D['G_rainen']=('通常 来年こそ 4:5',1350,t,bg(t),[
- LIGHT(t,820,300,1160,False),
- RIB(t,['1200 40','640 -40','560 520','1180 760'],120,'g1'),
- RIB(t,['1220 300','760 320','820 1000','520 1160'],70,'g2'),
- img('CLS',600,80,440,1000,f'border-radius: 220px 220px 24px 24px; border: 10px solid #FFFFFF; box-sizing: border-box; {SHP}','45% 35%','マシンピラティスのクラスを受ける女性たち'),
- logo(64,64),lead90(64,170,t,two=True),
- h1(64,330,f'来年こそ、<br>運動を<br>{BIG(t,"続けられる",100)}<br>私に。',84,1.3),
- sub(64,860,'運動が苦手な人ほど、<br>通いやすいピラティス。'),
- seal(500,880,200,f'<span style="{M}; font-size: 44px; font-weight: 800; line-height: 1.1">女性<br>専用</span>',t).replace('left: 500px','left: 520px'),
+ LIGHT(t,820,500,1160,False),
+ RIB(t,['1200 240','640 160','560 720','1180 960'],120,'g1'),
+ RIB(t,['1220 520','760 540','820 1100','520 1180'],70,'g2'),
+ STATS(64,40,952,t,150,52),
+ img('CLS',620,230,420,900,f'border-radius: 210px 210px 24px 24px; border: 10px solid #FFFFFF; box-sizing: border-box; {SHP}','45% 35%','マシンピラティスのクラスを受ける女性たち'),
+ h1(64,240,f'来年こそ、<br>運動を<br>{BIG(t,"続けられる",100)}<br>私に。',84,1.25),
+ MEMO(64,700,520,t,30),
+ seal(520,960,190,f'<span style="{M}; font-size: 42px; font-weight: 800; line-height: 1.1">女性<br>専用</span>',t),
+ NOTE(64,1110),
  band(1160,t,True)])
 D['G_rainen_story']=('通常 来年こそ 9:16',1920,t,bg(t),[
  LIGHT(t,900,800,1920,False),
- RIB(t,['1200 260','620 200','560 900','1200 1100'],120,'g1'),
- img('WIDE',0,0,1080,760,'','50% 30%','先生が前で教えるクラスの様子'),
- f'<div style="position: absolute; left: 0; top: 540px; width: 1080px; height: 240px; background: linear-gradient(180deg, rgba(251,243,241,0) 0%, {t["g1"]} 100%)"></div>',
- logo(826,820,190),
- seal(816,600,200,f'<span style="{M}; font-size: 44px; font-weight: 800; line-height: 1.1">女性<br>専用</span>',t),
- lead90(64,820,t),
- h1(64,910,f'来年こそ、運動を<br>{BIG(t,"続けられる",108)}私に。',90,1.3),
- sub(64,1210,'運動が苦手な人ほど、通いやすいピラティス。',36),
+ img('WIDE',0,0,1080,640,'','50% 30%','先生が前で教えるクラスの様子'),
+ f'<div style="position: absolute; left: 0; top: 440px; width: 1080px; height: 220px; background: linear-gradient(180deg, rgba(251,243,241,0) 0%, {t["g1"]} 100%)"></div>',
+ seal(856,300,170,f'<span style="{M}; font-size: 38px; font-weight: 800; line-height: 1.1">女性<br>専用</span>',t),
+ STATS(48,530,984,t,150,54),
+ h1(64,710,f'来年こそ、運動を<br>{BIG(t,"続けられる",108)}私に。',90,1.25),
+ MEMO(64,990,952,t,34),
+ NOTE(64,1320),
  band(1370,t,True)])
 
 FONT='<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700;800&amp;family=Noto+Sans+JP:wght@500;700&amp;display=swap" rel="stylesheet">'
