@@ -10,9 +10,9 @@ IMG={'LEG':('/_blob/47c971107c6ff92971f986707669e084',AF+'47c971107c6ff92971f986
  'WIDE':('/_blob/fc5082c6d5e4894e3e53cbd7e61bc66c',B+'素材候補/07_クラス全景と先生_修正.jpg'),
  'LOGO':('/_blob/329e00633c1a10555830a5386a38a2ee',B+'src_通常/logo.png')}
 TXT='#3F3430'
-TH={'beige':dict(g1='#FBF6F1',g2='#EFE4DA',ac='#56769A',b1='#6E5A4B',b2='#8A7462',soft='#E6D8CC'),
-    'blue':dict(g1='#F4F7FA',g2='#DCE5EE',ac='#A8677A',b1='#45596C',b2='#5E7488',soft='#CBD7E3'),
-    'pink':dict(g1='#FBF3F1',g2='#F1E1DD',ac='#56769A',b1='#9A5E6F',b2='#B57A8A',soft='#E8D0CB')}
+TH={'beige':dict(g1='#FBF6F1',g2='#EFE4DA',ac='#56769A',b1='#6E5A4B',b2='#8A7462',soft='#E6D8CC',deep='#D6BFAA'),
+    'blue':dict(g1='#F4F7FA',g2='#DCE5EE',ac='#A8677A',b1='#45596C',b2='#5E7488',soft='#CBD7E3',deep='#A9BDD2'),
+    'pink':dict(g1='#FBF3F1',g2='#F1E1DD',ac='#56769A',b1='#9A5E6F',b2='#B57A8A',soft='#E8D0CB',deep='#DDB3AC')}
 M="font-family: 'Shippori Mincho', serif"
 SHP='box-shadow: 0 16px 32px rgba(0,0,0,0.14)'
 CARD='background: linear-gradient(180deg, #FFFFFF 0%, #F6F1EF 100%); box-shadow: 0 12px 28px rgba(60,45,40,0.12), inset 0 1px 0 rgba(255,255,255,0.95)'
@@ -46,12 +46,39 @@ def armw(x,y,w,h,amp,extra=''):
 def wave(w,h,amp=40):
   return f"clip-path: path('M0 {amp} C {w*0.25:.0f} 0, {w*0.5:.0f} {amp*2}, {w*0.75:.0f} {amp} S {w} 0, {w} {amp} L {w} {h} L 0 {h} Z')"
 
+def LIGHT(t,cx,cy,h,rays=True):
+  g=f'<div style="position: absolute; inset: 0; background: radial-gradient(circle at {cx}px {cy}px, #FFFFFF 0%, {t["g1"]} 28%, {t["deep"]} 100%)"></div>'
+  if not rays: return g
+  ang=[(-6,7),(14,10),(36,8),(58,11),(80,6)] if cx<540 else [(100,6),(122,11),(144,8),(166,10),(186,7)]
+  import math
+  ps=''
+  for a,wd in ang:
+    L=2400;a1=math.radians(a-wd/2);a2=math.radians(a+wd/2)
+    ps+=f'<polygon points="{cx},{cy} {cx+L*math.cos(a1):.0f},{cy+L*math.sin(a1):.0f} {cx+L*math.cos(a2):.0f},{cy+L*math.sin(a2):.0f}" fill="url(#rg{cx})"/>'
+  return g+f'<svg aria-hidden="true" width="1080" height="{h}" viewBox="0 0 1080 {h}" style="position: absolute; left: 0; top: 0; filter: blur(5px)"><defs><radialGradient id="rg{cx}" cx="{cx}" cy="{cy}" r="1300" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF" stop-opacity="1"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient></defs>{ps}</svg>'
+def SILK(t,y,h,w=1080):
+  return (f'<svg aria-hidden="true" width="{w}" height="{h}" viewBox="0 0 {w} {h}" style="position: absolute; left: 0; top: {y}px"><defs><linearGradient id="sk{y}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{t["soft"]}"/><stop offset="1" stop-color="{t["deep"]}"/></linearGradient></defs>'
+   f'<path d="M0 {h*0.42:.0f} C {w*0.3:.0f} {h*0.05:.0f}, {w*0.55:.0f} {h*0.85:.0f}, {w} {h*0.25:.0f} L{w} {h} L0 {h} Z" fill="url(#sk{y})" opacity="0.65"/>'
+   f'<path d="M0 {h*0.62:.0f} C {w*0.35:.0f} {h*0.30:.0f}, {w*0.62:.0f} {h*1.0:.0f}, {w} {h*0.48:.0f} L{w} {h} L0 {h} Z" fill="url(#sk{y})"/>'
+   f'<path d="M0 {h*0.62:.0f} C {w*0.35:.0f} {h*0.30:.0f}, {w*0.62:.0f} {h*1.0:.0f}, {w} {h*0.48:.0f}" fill="none" stroke="#FFFFFF" stroke-width="4" opacity="0.8"/></svg>')
+def BAND2(t,y,h,ang): return f'<div style="position: absolute; left: -200px; width: 1480px; top: {y}px; height: {h}px; transform: rotate({ang}deg); background: linear-gradient(90deg, {t["deep"]} 0%, {t["soft"]} 50%, {t["deep"]} 100%); border-top: 6px solid #FFFFFF; border-bottom: 6px solid #FFFFFF; box-sizing: border-box"></div>'
+def RINGS(t,cx,cy,rs): return f'<div style="position: absolute; left: {cx-rs[-1]}px; top: {cy-rs[-1]}px; width: {2*rs[-1]}px; height: {2*rs[-1]}px; border-radius: 50%; background: radial-gradient(circle, #FFFFFF 0%, rgba(255,255,255,0.85) 35%, rgba(255,255,255,0) 70%)"></div>'+''.join(f'<div style="position: absolute; left: {cx-r}px; top: {cy-r}px; width: {2*r}px; height: {2*r}px; border-radius: 50%; border: 8px solid rgba(255,255,255,0.9); box-shadow: 0 0 0 10px {t["soft"]}"></div>' for r in rs)
+def WIN(x,y,t,n=3,w=130,h=300,gap=40,skew=-28):
+  return ''.join(f'<div style="position: absolute; left: {x+i*(w+gap)}px; top: {y}px; width: {w}px; height: {h}px; transform: skewX({skew}deg); background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.15) 100%); filter: blur(3px)"></div>' for i in range(n))
+def RIB(t,pts,wd,id_):
+  # thick flowing ribbon along a cubic path, with white edge highlight
+  d=f"M{pts[0]} C {pts[1]}, {pts[2]}, {pts[3]}"
+  return (f'<svg aria-hidden="true" width="1080" height="1920" viewBox="0 0 1080 1920" style="position: absolute; left: 0; top: 0; overflow: visible"><defs><linearGradient id="{id_}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.45" stop-color="{t["soft"]}"/><stop offset="1" stop-color="{t["deep"]}"/></linearGradient></defs>'
+   f'<path d="{d}" fill="none" stroke="{t["deep"]}" stroke-width="{wd+16}" stroke-linecap="round" opacity="0.35"/>'
+   f'<path d="{d}" fill="none" stroke="url(#{id_})" stroke-width="{wd}" stroke-linecap="round"/>'
+   f'<path d="{d}" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.9"/></svg>')
 D={}
 # ---------- A 初心者×先生（キャンペーン）
 t=TH['beige']
 D['Main']=('A 初心者×先生 4:5',1350,t,bg(t),[
- f'<div style="position: absolute; inset: 0; background: radial-gradient(circle at 12% 6%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 42%)"></div>',
+ LIGHT(t,40,0,1160),
  img('LEG',500,0,580,1000,f'border-radius: 290px 0 0 0; {SHP}','50% 40%','先生が生徒の脚の動きを補助している様子'),
+  WIN(40,930,t,3,120,220,36),
  logo(64,64),lead90(64,170,t,two=True),
  h1(64,330,f'運動が<br>苦手でも、<br>先生が<br>{U(t,"そばに")}。',88),
  sub(64,820,'動きを見ながら、<br>その場で声をかけます。'),
@@ -59,6 +86,8 @@ D['Main']=('A 初心者×先生 4:5',1350,t,bg(t),[
  seal(830,900,200,f'<span style="{M}; font-size: 44px; font-weight: 800; line-height: 1.1">女性<br>専用</span>',t),
  band(1160,t,False)])
 D['A_story']=('A 初心者×先生 9:16',1920,t,bg(t),[
+ LIGHT(t,40,760,1920),
+ WIN(560,1060,t,3,110,260,34),
  img('WIDE',0,0,1080,780,'','50% 30%','先生が前で教えるクラスの様子'),
  f'<div style="position: absolute; left: 0; top: 560px; width: 1080px; height: 240px; background: linear-gradient(180deg, rgba(251,246,241,0) 0%, {t["g1"]} 100%)"></div>',
  img('LEG',690,450,340,340,f'border-radius: 50%; border: 8px solid #FFFFFF; box-sizing: border-box; {SHP}','50% 40%','先生が生徒の脚の動きを補助している様子'),
@@ -77,7 +106,8 @@ def timepanel(x,y,w,t,fs=72):
   return f'<div style="position: absolute; left: {x}px; top: {y}px; width: {w}px; box-sizing: border-box; padding: 26px 32px; border-radius: 20px; {CARD}; display: flex; gap: 28px; color: {TXT}">{cell("朝は","[0:00]〜")}<div style="width: 3px; background: {t["ac"]}; border-radius: 2px"></div>{cell("夜は","〜[0:00]")}</div>'
 STN=lambda t,fs:f'<div style="display: inline-flex; align-items: center; gap: 14px"><span style="width: 8px; height: {int(fs*1.1)}px; background: {t["ac"]}; border-radius: 4px"></span>[駅名]駅から徒歩[X]分</div>'
 D['B_station']=('B 駅チカ×時間帯 4:5（[ ]は差し替え）',1350,t,bg(t),[
- f'<div style="position: absolute; inset: 0; background: radial-gradient(circle at 90% 0%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 50%)"></div>',
+ LIGHT(t,1060,0,1160),
+ WIN(640,560,t,3,110,520,40,24),
  img('CLS',0,0,470,1160,'-webkit-mask-image: linear-gradient(to right, #000 78%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to right, #000 78%, rgba(0,0,0,0) 100%)','40% 30%','マシンピラティスのクラスを受ける女性たち'),
  logo(806,64),
  f'<div style="position: absolute; left: 500px; top: 190px; font-size: 34px; font-weight: 700; color: {TXT}">{STN(t,34)}</div>',
@@ -86,6 +116,8 @@ D['B_station']=('B 駅チカ×時間帯 4:5（[ ]は差し替え）',1350,t,bg(t
  timepanel(500,830,516,t,46),
  band(1160,t,False)])
 D['B_story']=('B 駅チカ×時間帯 9:16（[ ]は差し替え）',1920,t,bg(t),[
+ LIGHT(t,1060,760,1920),
+ WIN(560,780,t,3,110,560,40,24),
  img('WIDE',0,0,1080,780,'','50% 30%','窓の大きいスタジオでのクラスの様子'),
  f'<div style="position: absolute; left: 0; top: 560px; width: 1080px; height: 240px; background: linear-gradient(180deg, rgba(244,247,250,0) 0%, {t["g1"]} 100%)"></div>',
  logo(826,800,190),
@@ -100,7 +132,10 @@ def offcard(x,y,w,t):
   return f'<div style="position: absolute; left: {x}px; top: {y}px; width: {w}px; box-sizing: border-box; padding: 22px 30px; border-radius: 20px; {CARD}; border-top: 6px solid {t["ac"]}; color: {TXT}"><div style="font-size: 30px; font-weight: 700">月会費 最大3か月</div><div style="{M}; font-size: 92px; font-weight: 800; line-height: 1.05; color: {t["ac"]}">50%OFF</div></div>'
 WAVE=lambda t,y,h:f'<svg aria-hidden="true" width="1080" height="{h}" viewBox="0 0 1080 {h}" style="position: absolute; left: 0; top: {y}px"><path d="M0 {h*0.55:.0f} C 260 {h*0.15:.0f}, 520 {h*0.95:.0f}, 1080 {h*0.35:.0f} L1080 {h} L0 {h} Z" fill="{t["soft"]}" opacity="0.7"/><path d="M0 {h*0.75:.0f} C 300 {h*0.45:.0f}, 640 {h:.0f}, 1080 {h*0.6:.0f} L1080 {h} L0 {h} Z" fill="{t["soft"]}"/></svg>'
 D['C_extend']=('C 11月中にはじめる×延長 4:5',1350,t,bg(t),[
- WAVE(t,880,280),
+ LIGHT(t,900,0,1160,False),
+ RIB(t,['1180 60','720 80','1060 460','720 700'],150,'r1'),
+ RIB(t,['1200 420','960 420','1000 800','420 1200'],70,'r2'),
+ SILK(t,700,460),
  logo(64,64),lead90(64,170,t),
  h1(64,270,f'はじめての<br>ピラティスは、<br>{MARK(t,"11月中に")}。',84),
  sub(64,620,'好評につき、11/30まで延長しました。'),
@@ -108,7 +143,9 @@ D['C_extend']=('C 11月中にはじめる×延長 4:5',1350,t,bg(t),[
  offcard(64,720,480,t),
  band(1160,t,False)])
 D['C_story']=('C 11月中にはじめる×延長 9:16',1920,t,bg(t),[
- WAVE(t,1100,300),
+ LIGHT(t,900,250,1920,False),
+ RIB(t,['-120 420','260 360','200 700','520 820'],150,'r1'),
+ RIB(t,['-100 160','300 120','420 520','1200 780'],70,'r2'),
  armw(420,250,620,620,44),
  logo(64,300,190),
  offcard(64,560,420,t).replace('font-size: 92px','font-size: 80px'),
@@ -118,9 +155,10 @@ D['C_story']=('C 11月中にはじめる×延長 9:16',1920,t,bg(t),[
  band(1370,t,False)])
 # ---------- E 苦手な人ほど（通常）
 t=TH['beige']
-def panel(x,y,w,h): return f'<div style="position: absolute; left: {x}px; top: {y}px; width: {w}px; height: {h}px; border-radius: 28px; {CARD}"></div>'
+def panel(x,y,w,h): return f'<div style="position: absolute; left: {x}px; top: {y}px; width: {w}px; height: {h}px; border-radius: 28px; background: linear-gradient(180deg, #FFFFFF 0%, #F6F1EF 100%); box-shadow: 0 28px 56px rgba(60,45,40,0.22), inset 0 1px 0 rgba(255,255,255,0.95)"></div>'
 D['E_nigate']=('通常 苦手な人ほど 4:5',1350,t,bg(t),[
- img('WIDE',0,0,1080,660,'','50% 35%','先生が前で教えるクラスの様子'),
+ img('WIDE',-60,300,1200,900,'filter: blur(22px) saturate(0.9); opacity: 0.75','50% 60%',''),
+ img('WIDE',0,0,1080,660,'-webkit-mask-image: linear-gradient(180deg, #000 80%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(180deg, #000 80%, rgba(0,0,0,0) 100%)','50% 35%','先生が前で教えるクラスの様子'),
  panel(40,560,1000,560),
  seal(820,380,200,f'<span style="{M}; font-size: 44px; font-weight: 800; line-height: 1.1">女性<br>専用</span>',t),
  logo(820,1040-430,170).replace('top: 610px','top: 1060px').replace('left: 820px','left: 830px'),
@@ -129,7 +167,8 @@ D['E_nigate']=('通常 苦手な人ほど 4:5',1350,t,bg(t),[
  sub(96,930,'マシンが動きを支えるから、<br>筋力に自信がなくても大丈夫。'),
  band(1160,t,True)])
 D['E_nigate_story']=('通常 苦手な人ほど 9:16',1920,t,bg(t),[
- img('WIDE',0,0,1080,900,'','50% 35%','先生が前で教えるクラスの様子'),
+ img('WIDE',-80,600,1240,1340,'filter: blur(24px) saturate(0.9); opacity: 0.75','50% 60%',''),
+ img('WIDE',0,0,1080,900,'-webkit-mask-image: linear-gradient(180deg, #000 82%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(180deg, #000 82%, rgba(0,0,0,0) 100%)','50% 35%','先生が前で教えるクラスの様子'),
  panel(40,800,1000,540),
  seal(816,600,200,f'<span style="{M}; font-size: 44px; font-weight: 800; line-height: 1.1">女性<br>専用</span>',t),
  logo(826,1250,160),
@@ -142,33 +181,37 @@ t=TH['blue']
 def tag(x,y,s,t): return f'<div style="position: absolute; left: {x}px; top: {y}px; padding: 10px 22px; border-radius: 12px; background: #FFFFFF; border: 2px solid {t["ac"]}; font-size: 28px; font-weight: 700; color: {TXT}; z-index: 4; box-shadow: 0 8px 18px rgba(0,0,0,0.10)">{s}</div>'
 def ribbon(y,h,t): return f'<div style="position: absolute; left: 0; right: 0; top: {y}px; height: {h}px; background: linear-gradient(90deg, {t["soft"]} 0%, #FFFFFF 50%, {t["soft"]} 100%)"></div>'
 D['F_sensei']=('通常 先生がそばで 4:5',1350,t,bg(t),[
- f'<div style="position: absolute; inset: 0; background: radial-gradient(circle at 85% 8%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 45%)"></div>',
+ LIGHT(t,1060,0,1160,False),
  logo(64,64),lead90(64,170,t),
  h1(64,270,f'はじめてでも、<br>先生が{EMPH(t,"そばで")}<br>教えます。',88),
- ribbon(790,180,t),
- img('BACK',64,660,440,440,f'border-radius: 24px; {SHP}','50% 30%','先生が生徒の背中に手を添えて補助している様子'),
- img('LEG',576,660,440,440,f'border-radius: 24px; {SHP}','50% 40%','先生が生徒の脚の動きを補助している様子'),
- tag(84,1040,'姿勢を手で整える',t),tag(596,1040,'動きをその場で補助',t),
+ BAND2(t,770,250,-9),
+ img('BACK',64,680,410,410,f'border-radius: 24px; border: 8px solid #FFFFFF; box-sizing: border-box; {SHP}','50% 30%','先生が生徒の背中に手を添えて補助している様子'),
+ img('LEG',606,640,410,410,f'border-radius: 24px; border: 8px solid #FFFFFF; box-sizing: border-box; {SHP}','50% 40%','先生が生徒の脚の動きを補助している様子'),
+ tag(84,1050,'姿勢を手で整える',t),tag(626,1010,'動きをその場で補助',t),
  band(1160,t,True)])
 D['F_sensei_story']=('通常 先生がそばで 9:16',1920,t,bg(t),[
- ribbon(420,220,t),
- img('BACK',64,280,460,500,f'border-radius: 24px; {SHP}','50% 30%','先生が生徒の背中に手を添えて補助している様子'),
- img('LEG',556,280,460,500,f'border-radius: 24px; {SHP}','50% 40%','先生が生徒の脚の動きを補助している様子'),
- tag(84,720,'姿勢を手で整える',t),tag(576,720,'動きをその場で補助',t),
+ LIGHT(t,1060,250,1920,False),
+ BAND2(t,420,300,-9),
+ img('BACK',64,320,440,460,f'border-radius: 24px; border: 8px solid #FFFFFF; box-sizing: border-box; {SHP}','50% 30%','先生が生徒の背中に手を添えて補助している様子'),
+ img('LEG',576,270,440,460,f'border-radius: 24px; border: 8px solid #FFFFFF; box-sizing: border-box; {SHP}','50% 40%','先生が生徒の脚の動きを補助している様子'),
+ tag(84,720,'姿勢を手で整える',t),tag(596,670,'動きをその場で補助',t),
  logo(64,830,190),lead90(64,930,t),
  h1(64,1030,f'はじめてでも、<br>先生が{EMPH(t,"そばで")}教えます。',84),
  band(1370,t,True)])
 # ---------- G 来年こそ（通常）
 t=TH['pink']
 D['G_rainen']=('通常 来年こそ 4:5',1350,t,bg(t),[
- f'<div style="position: absolute; inset: 0; background: radial-gradient(circle at 100% 0%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0) 55%)"></div>',
- img('CLS',600,80,440,1000,f'border-radius: 220px 220px 24px 24px; {SHP}','45% 35%','マシンピラティスのクラスを受ける女性たち'),
+ LIGHT(t,820,300,1160,False),
+ RINGS(t,820,320,[290,400,520]),
+ img('CLS',600,80,440,1000,f'border-radius: 220px 220px 24px 24px; border: 10px solid #FFFFFF; box-sizing: border-box; {SHP}','45% 35%','マシンピラティスのクラスを受ける女性たち'),
  logo(64,64),lead90(64,170,t,two=True),
  h1(64,330,f'来年こそ、<br>運動を<br>{BIG(t,"続けられる",100)}<br>私に。',84,1.3),
  sub(64,860,'運動が苦手な人ほど、<br>通いやすいピラティス。'),
  seal(500,880,200,f'<span style="{M}; font-size: 44px; font-weight: 800; line-height: 1.1">女性<br>専用</span>',t).replace('left: 500px','left: 520px'),
  band(1160,t,True)])
 D['G_rainen_story']=('通常 来年こそ 9:16',1920,t,bg(t),[
+ LIGHT(t,900,800,1920,False),
+ RINGS(t,900,800,[260,360,460]),
  img('WIDE',0,0,1080,760,'','50% 30%','先生が前で教えるクラスの様子'),
  f'<div style="position: absolute; left: 0; top: 540px; width: 1080px; height: 240px; background: linear-gradient(180deg, rgba(251,243,241,0) 0%, {t["g1"]} 100%)"></div>',
  logo(826,820,190),
