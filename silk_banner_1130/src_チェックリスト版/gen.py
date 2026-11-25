@@ -87,8 +87,8 @@ D={}
 t=TH['beige']
 D['Main']=('A 初心者×先生 4:5',1350,t,bg(t),[
  LIGHT(t,40,0,1160),
+ img('WIDE',0,900,1080,260,"clip-path: path('M0 40 C 260 -10, 560 70, 1080 10 L 1080 260 L 0 260 Z')",'50% 62%','先生が前で教えるクラスの様子'),
  img('LEG',500,0,580,1000,f'border-radius: 290px 0 0 0; {SHP}','50% 40%','先生が生徒の脚の動きを補助している様子'),
-  WIN(40,930,t,3,120,220,36),
  logo(64,64),lead90(64,170,t,two=True),
  h1(64,330,f'運動が<br>苦手でも、<br>先生が<br>{U(t,"そばに")}。',88),
  sub(64,820,'動きを見ながら、<br>その場で声をかけます。'),
@@ -97,7 +97,6 @@ D['Main']=('A 初心者×先生 4:5',1350,t,bg(t),[
  band(1160,t,False)])
 D['A_story']=('A 初心者×先生 9:16',1920,t,bg(t),[
  LIGHT(t,40,760,1920),
- WIN(560,1060,t,3,110,260,34),
  img('WIDE',0,0,1080,780,'','50% 30%','先生が前で教えるクラスの様子'),
  f'<div style="position: absolute; left: 0; top: 560px; width: 1080px; height: 240px; background: linear-gradient(180deg, rgba(251,246,241,0) 0%, {t["g1"]} 100%)"></div>',
  img('LEG',690,450,340,340,f'border-radius: 50%; border: 8px solid #FFFFFF; box-sizing: border-box; {SHP}','50% 40%','先生が生徒の脚の動きを補助している様子'),
@@ -117,7 +116,6 @@ def timepanel(x,y,w,t,fs=72):
 STN=lambda t,fs:f'<div style="display: inline-flex; align-items: center; gap: 14px"><span style="width: 8px; height: {int(fs*1.1)}px; background: {t["ac"]}; border-radius: 4px"></span>[駅名]駅から徒歩[X]分</div>'
 D['B_station']=('B 駅チカ×時間帯 4:5（[ ]は差し替え）',1350,t,bg(t),[
  LIGHT(t,1060,0,1160),
- WIN(640,560,t,3,110,520,40,24),
  img('CLS',0,0,470,1160,'-webkit-mask-image: linear-gradient(to right, #000 78%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to right, #000 78%, rgba(0,0,0,0) 100%)','40% 30%','マシンピラティスのクラスを受ける女性たち'),
  logo(806,64),
  f'<div style="position: absolute; left: 500px; top: 190px; font-size: 34px; font-weight: 700; color: {TXT}">{STN(t,34)}</div>',
@@ -127,7 +125,6 @@ D['B_station']=('B 駅チカ×時間帯 4:5（[ ]は差し替え）',1350,t,bg(t
  band(1160,t,False)])
 D['B_story']=('B 駅チカ×時間帯 9:16（[ ]は差し替え）',1920,t,bg(t),[
  LIGHT(t,1060,760,1920),
- WIN(560,780,t,3,110,560,40,24),
  img('WIDE',0,0,1080,780,'','50% 30%','窓の大きいスタジオでのクラスの様子'),
  f'<div style="position: absolute; left: 0; top: 560px; width: 1080px; height: 240px; background: linear-gradient(180deg, rgba(244,247,250,0) 0%, {t["g1"]} 100%)"></div>',
  logo(826,800,190),
